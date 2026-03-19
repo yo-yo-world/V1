@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YYW — Yo-Yo World</title>
+<style>
+:root {
+  --bg: #0c0b0a;
+  --text: #dedad4;
+  --muted: #4a4844;
+  --dim: #1e1d1b;
+  --red: #cc2200;
+  --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-weight: 400;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: start;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--dim);
+}
+
+.h-left { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; }
+.h-center { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); text-align: center; }
+.h-right { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); text-align: right; }
+
+.designation {
+  padding: 72px 0 0;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 0 40px;
+  align-items: start;
+}
+
+.obj-num { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 10px; }
+.obj-dot { width: 6px; height: 6px; background: var(--red); border-radius: 50%; display: block; }
+
+h1 {
+  font-size: clamp(52px, 7.5vw, 108px);
+  font-weight: 300;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+}
+
+h1 .italic { font-style: italic; color: var(--muted); }
+
+.divider { border: none; border-top: 1px solid var(--dim); margin: 64px 0; }
+
+.spec-grid { display: grid; grid-template-columns: 120px 1fr 1fr; }
+
+.spec-label {
+  font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--muted); padding: 18px 0; border-top: 1px solid var(--dim);
+}
+
+.spec-value {
+  font-size: 13px; font-weight: 300; color: var(--text);
+  padding: 18px 40px 18px 0; border-top: 1px solid var(--dim);
+  line-height: 1.6; letter-spacing: 0.01em;
+}
+
+.spec-value.mono {
+  font-family: 'Courier New', monospace; font-size: 11px;
+  letter-spacing: 0.08em; color: var(--muted);
+}
+
+.statement-block {
+  padding: 80px 0;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 0 40px;
+}
+
+.statement-text {
+  font-size: clamp(18px, 2.4vw, 28px);
+  font-weight: 300; line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+.statement-text p + p { margin-top: 1.4em; }
+.statement-text em { font-style: italic; color: var(--muted); }
+
+.laws {
+  border-top: 1px solid var(--dim);
+  padding: 48px 0;
+  display: grid;
+  grid-template-columns: 120px repeat(3, 1fr);
+  gap: 0 24px;
+}
+
+.laws-header { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); padding-top: 4px; }
+
+.law { border-left: 1px solid var(--dim); padding: 0 0 0 20px; }
+.law-num { font-size: 10px; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; display: block; margin-bottom: 14px; }
+.law-text { font-size: 13px; font-weight: 400; line-height: 1.6; }
+
+.waitlist-block {
+  border-top: 1px solid var(--dim);
+  padding: 48px 0 72px;
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 0 40px;
+  align-items: start;
+}
+
+.waitlist-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); padding-top: 14px; }
+
+.waitlist-form p { font-size: 13px; font-weight: 300; color: var(--muted); margin-bottom: 20px; line-height: 1.6; max-width: 440px; }
+
+.input-row { display: flex; border-bottom: 1px solid var(--muted); max-width: 440px; margin-bottom: 12px; }
+
+.input-row input {
+  flex: 1; background: none; border: none; outline: none;
+  font-family: var(--font); font-size: 14px; font-weight: 300;
+  color: var(--text); padding: 12px 0; letter-spacing: 0.02em;
+}
+
+.input-row input::placeholder { color: var(--muted); }
+
+.input-row button {
+  background: none; border: none; cursor: pointer;
+  font-family: var(--font); font-size: 10px; font-weight: 500;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text); padding: 12px 0 12px 20px; transition: color 0.2s;
+}
+
+.input-row button:hover { color: var(--muted); }
+
+.confirm-msg {
+  font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--muted); opacity: 0; transition: opacity 0.5s;
+}
+.confirm-msg.show { opacity: 1; }
+
+footer {
+  border-top: 1px solid var(--dim);
+  padding: 24px 0;
+  display: grid;
+  grid-template-columns: 120px 1fr 1fr;
+  gap: 0 40px;
+  align-items: center;
+}
+
+.footer-ref { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+.footer-coord { font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: 0.12em; color: var(--muted); }
+.footer-right { font-size: 11px; font-style: italic; color: var(--muted); text-align: right; font-weight: 300; }
+
+@media (max-width: 680px) {
+  .page { padding: 0 24px; }
+  header { grid-template-columns: 1fr 1fr; }
+  .h-center { display: none; }
+  .designation { grid-template-columns: 1fr; gap: 24px 0; }
+  .spec-grid { grid-template-columns: 1fr; }
+  .spec-label { border-top: none; padding: 6px 0 2px; }
+  .spec-value { padding: 0 0 18px; border-top: none; }
+  .statement-block { grid-template-columns: 1fr; }
+  .laws { grid-template-columns: 1fr; gap: 0; }
+  .laws-header { display: none; }
+  .law { border-left: none; border-top: 1px solid var(--dim); padding: 20px 0 0; margin-bottom: 24px; }
+  .waitlist-block { grid-template-columns: 1fr; }
+  .waitlist-label { padding-top: 0; margin-bottom: 12px; }
+  footer { grid-template-columns: 1fr 1fr; }
+  .footer-coord { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <span class="h-left">YYW — 001</span>
+    <span class="h-center">The Object Speaks</span>
+    <span class="h-right">Season 00</span>
+  </header>
+
+  <div class="designation">
+    <div>
+      <span class="obj-num">Object</span>
+      <span class="obj-dot"></span>
+    </div>
+    <h1>Yo-Yo<br><span class="italic">World</span></h1>
+  </div>
+
+  <hr class="divider">
+
+  <div class="spec-grid">
+    <div class="spec-label">Origin</div>
+    <div class="spec-value">Not a brand. Not a company. A world narrated by the object itself. The yo-yo is the protagonist — the player is its companion.</div>
+    <div class="spec-value mono">54.6872° N<br>25.2797° E<br>Vilnius, LT</div>
+
+    <div class="spec-label">Status</div>
+    <div class="spec-value">Formation stage. The world is being written. Entry is open to those who throw.</div>
+    <div class="spec-value mono">SEASON-00<br>PRE-RELEASE<br>—</div>
+
+    <div class="spec-label">Object</div>
+    <div class="spec-value">The yo-yo holds memory. Every hand that held it. Every drop. Every return. It does not rank you. It does not ask your name.</div>
+    <div class="spec-value mono">DISC / AXLE / STRING<br>∅ 50–58mm<br>—</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="statement-block">
+    <div></div>
+    <div class="statement-text">
+      <p>I have been held by ten thousand hands.<br>
+      Some grip too tight. Some let go too soon.<br>
+      <em>But occasionally — a hand finds the right tension.</em></p>
+      <p>Not holding. Not releasing. Just present.<br>
+      Those are the ones I remember.</p>
+      <p>You do not need a title.<br>
+      You only need to throw.</p>
+    </div>
+  </div>
+
+  <div class="laws">
+    <div class="laws-header">Principles</div>
+    <div class="law">
+      <span class="law-num">§ 01 — Identity</span>
+      <p class="law-text">No real name. Your avatar is how the yo-yo sees you. Not who you are outside. Who you are when you throw.</p>
+    </div>
+    <div class="law">
+      <span class="law-num">§ 02 — World</span>
+      <p class="law-text">The lore belongs to whoever shows up to build it. The yo-yo narrates. The community is its memory.</p>
+    </div>
+    <div class="law">
+      <span class="law-num">§ 03 — Belonging</span>
+      <p class="law-text">No rank. No gate. Champion or beginner — the fact that you throw is the only entry condition.</p>
+    </div>
+  </div>
+
+  <div class="waitlist-block">
+    <div class="waitlist-label">Register</div>
+    <div class="waitlist-form">
+      <p>The world is forming. Leave your contact — we will find you when the time is right.</p>
+      <div class="input-row">
+        <input type="email" id="email" placeholder="your@email.com" autocomplete="off">
+        <button onclick="join()">Submit →</button>
+      </div>
+      <div class="confirm-msg" id="confirm">Registered. The yo-yo knows.</div>
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-ref">YYW — 2025</span>
+    <span class="footer-coord">54.6872° N / 25.2797° E</span>
+    <span class="footer-right">"I fall. I return. We understand."</span>
+  </footer>
+
+</div>
+<script>
+function join() {
+  const input = document.getElementById('email');
+  const confirm = document.getElementById('confirm');
+  if (!input.value || !input.value.includes('@')) { input.focus(); return; }
+  input.value = '';
+  input.placeholder = '—';
+  input.disabled = true;
+  confirm.classList.add('show');
+}
+document.getElementById('email').addEventListener('keydown', e => {
+  if (e.key === 'Enter') join();
+});
+</script>
+</body>
+</html>
