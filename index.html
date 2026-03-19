@@ -18,12 +18,25 @@
 html { font-size: 16px; }
 
 body {
-  background: var(--bg);
+  background: #0c0b0a;
+  background-image: 
+    radial-gradient(ellipse at 20% 50%, #1a1208 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, #0d1208 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 80%, #12080d 0%, transparent 50%);
+  background-size: 200% 200%;
+  animation: breathe 18s ease-in-out infinite alternate;
   color: var(--text);
   font-family: var(--font);
   font-weight: 400;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+}
+
+@keyframes breathe {
+  0%   { background-position: 0% 0%; }
+  33%  { background-position: 100% 30%; }
+  66%  { background-position: 40% 100%; }
+  100% { background-position: 80% 60%; }
 }
 
 .page {
