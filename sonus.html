@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Metanoia — Sonus</title>
 <style>
-:root[data-theme="dark"] { --bg:#0c0b0a;--text:#dedad4;--dim:#1a1917;--toggle-bg:#2a2826;--toggle-knob:#dedad4; }
-:root[data-theme="light"] { --bg:#f5f4f0;--text:#111110;--dim:#e0ddd7;--toggle-bg:#dedad4;--toggle-knob:#111110; }
+:root[data-theme="dark"]{--bg:#0c0b0a;--text:#dedad4;--dim:#1a1917;--toggle-bg:#2a2826;--toggle-knob:#dedad4;}
+:root[data-theme="light"]{--bg:#f5f4f0;--text:#111110;--dim:#e0ddd7;--toggle-bg:#dedad4;--toggle-knob:#111110;}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--text);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:300;min-height:100vh;-webkit-font-smoothing:antialiased;transition:background .6s,color .6s;}
 #bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
@@ -59,13 +59,6 @@ footer{border-top:1px solid var(--dim);padding:32px 0;display:flex;justify-conte
   <span class="footer-left">metanoia.fyi</span>
   <span class="footer-right">"I fall. I return. We understand."</span>
 </footer>
-<script>
-const bg=document.getElementById('bg');
-let t=0,af;
-function dark(){t+=.0002;bg.style.backgroundImage='radial-gradient(ellipse at '+(20+Math.sin(t)*15)+'% '+(50+Math.cos(t*.7)*20)+'%,#1c1410 0%,transparent 55%),radial-gradient(ellipse at '+(80+Math.cos(t*.8)*12)+'% '+(20+Math.sin(t*.9)*18)+'%,#0e1410 0%,transparent 55%),radial-gradient(ellipse at '+(60+Math.sin(t*1.1)*10)+'% '+(80+Math.cos(t*.6)*15)+'%,#14090f 0%,transparent 55%)';af=requestAnimationFrame(dark);}
-function light(){t+=.0002;bg.style.backgroundImage='radial-gradient(ellipse at '+(20+Math.sin(t)*15)+'% '+(50+Math.cos(t*.7)*20)+'%,#ede8e0 0%,transparent 55%),radial-gradient(ellipse at '+(80+Math.cos(t*.8)*12)+'% '+(20+Math.sin(t*.9)*18)+'%,#e8ede0 0%,transparent 55%),radial-gradient(ellipse at '+(60+Math.sin(t*1.1)*10)+'% '+(80+Math.cos(t*.6)*15)+'%,#ede0e8 0%,transparent 55%)';af=requestAnimationFrame(light);}
-function toggleTheme(){const h=document.documentElement;cancelAnimationFrame(af);if(h.dataset.theme==='dark'){h.dataset.theme='light';document.getElementById('theme-label').textContent='Light';light();}else{h.dataset.theme='dark';document.getElementById('theme-label').textContent='Dark';dark();}}
-dark();
-</script>
+<script src="shared.js"></script>
 </body>
 </html>
