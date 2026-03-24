@@ -3,35 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Metanoia</title>
-<style>
-:root[data-theme="dark"]{--bg:#0c0b0a;--text:#dedad4;--dim:#1a1917;--toggle-bg:#2a2826;--toggle-knob:#dedad4;}
-:root[data-theme="light"]{--bg:#f5f4f0;--text:#111110;--dim:#e0ddd7;--toggle-bg:#dedad4;--toggle-knob:#111110;}
-*{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--bg);color:var(--text);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:300;min-height:100vh;-webkit-font-smoothing:antialiased;transition:background .6s,color .6s;}
-#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
-.page{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:0 48px;}
-header{padding:36px 0;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;border-bottom:1px solid var(--dim);}
-.logo{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--text);opacity:.5;}
-nav{display:flex;gap:40px;}
-nav a{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--text);opacity:.3;text-decoration:none;transition:opacity .2s;}
-nav a:hover{opacity:.8;}
-.header-right{display:flex;justify-content:flex-end;}
-.toggle{display:flex;align-items:center;gap:10px;cursor:pointer;}
-.toggle-label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--text);opacity:.25;user-select:none;}
-.toggle-track{width:36px;height:18px;background:var(--toggle-bg);border-radius:9px;position:relative;border:1px solid var(--dim);}
-.toggle-knob{width:12px;height:12px;background:var(--toggle-knob);border-radius:50%;position:absolute;top:2px;left:2px;transition:transform .3s;}
-[data-theme="light"] .toggle-knob{transform:translateX(18px);}
-.center{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:1;pointer-events:none;}
-.word{font-size:clamp(32px,5vw,56px);font-weight:300;letter-spacing:.02em;color:var(--text);opacity:.7;}
-@media(max-width:640px){.page{padding:0 24px;}nav{display:none;}header{grid-template-columns:1fr 1fr;}}
-</style>
+<title>Μετάνοια</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <div id="bg"></div>
 <div class="page">
   <header>
-    <span class="logo">Metanoia</span>
+    <span class="logo">Μετάνοια</span>
     <nav>
       <a href="iacta.html">Iacta</a>
       <a href="sonus.html">Sonus</a>
@@ -45,12 +24,76 @@ nav a:hover{opacity:.8;}
     </div>
   </header>
 </div>
-<div class="center">
-  <span class="word">Μετάνοια</span>
-</div>
+<main class="page">
+  <section class="manifesto">
+    <div class="manifesto-body manifesto-pre">
+Μετάνοια
+
+From interpretation of reality to participation in it.
+
+What appears as a cycle is a limitation of perception.
+Dawn and dusk, 
+Birth and death,
+The yo-yo in the hand before the throw
+And the yo-yo returned to the hand,
+These are not repetitions. 
+They are projections of divided thinking attempting to stabilize itself.
+Metanoia removes the division.
+Not by unifying concepts, but by eliminating the need for division altogether.
+It is enough to see that action is inseparable from the one who perceives it.
+Reality is neither constructed nor observed.
+It is encountered in interaction.
+And interaction is never abstract,
+it is always concrete, embodied, precise.
+An object is not a fixed entity.
+It is a condition within a relationship.
+Being is not a stable identity.
+It is a position within that same relationship.
+Only that which exists in interaction exists at all.
+The yo-yo is not cyclical.
+It becomes cyclical in the hands of one who repeats without awareness.
+In the hands of a master it is not a cycle, it is a controlled release and return of energy.
+Rotation is not essence.
+Rotation is suspension,
+A temporary state in which movement conceals structure.
+The moment of stillness is not the end of a trick.
+It is the moment in which structure becomes visible.
+Not because movement disappears, but because the illusion does.
+Mastery is not control over movement.
+It is clarity of interaction.
+The string is not a tool.
+It is an interface,
+The medium through which intention becomes material.
+It does not connect two separate objects.
+It defines the relationship in which both sides become distinguishable.
+To play beyond play.
+To be beyond being.
+There is only the moment in which rules cease to be mistaken for reality.
+To leave the game does not mean to abandon it,
+It means to stop confusing its structure with truth.
+Being does not arise from emptiness.
+It arises from precision.
+Silence is not absence.
+It is the state in which distortion is no longer sustained.
+The sound of one hand is not a paradox.
+It is a reminder that meaning does not require symmetry.
+Return is not repetition.
+Return is recognition.
+Divided thinking does not hold,
+Not because it is forbidden,
+But because it cannot maintain clarity.
+Metanoia is not belief.
+It is a discipline of perception.
+And perception, when disciplined,
+Does not withdraw from reality,
+It enters it.
+    </div>
+  </section>
+</main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
 <script>
-const _sb = supabase.createClient("https://tnxaybkqyffrnhrrxocc.supabase.co","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRueGF5YmtxeWZmcm5ocnJ4b2NjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzMjk5NTMsImV4cCI6MjA4OTkwNTk1M30.J_E9kyP9xswFvlayAJ2qMq5Wa0rsn87oTT0pw1ydy_8");
+const _sb = getSupabase();
 _sb.auth.getSession().then(({data})=>{ if(!data.session) window.location.href="auth.html"; });
 </script>
 <script src="shared.js"></script>
