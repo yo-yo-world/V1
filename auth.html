@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metanoia</title>
+<style>
+:root[data-theme="dark"]{--bg:#0c0b0a;--text:#dedad4;--dim:#1a1917;--toggle-bg:#2a2826;--toggle-knob:#dedad4;--input-border:#2a2826;}
+:root[data-theme="light"]{--bg:#f5f4f0;--text:#111110;--dim:#e0ddd7;--toggle-bg:#dedad4;--toggle-knob:#111110;--input-border:#c0bdb8;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-weight:300;min-height:100vh;display:flex;align-items:center;justify-content:center;-webkit-font-smoothing:antialiased;transition:background .6s,color .6s;}
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
+.box{position:relative;z-index:1;width:100%;max-width:320px;padding:0 24px;}
+.title{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--text);opacity:.4;margin-bottom:48px;display:block;}
+.tabs{display:flex;gap:32px;margin-bottom:40px;border-bottom:1px solid var(--dim);padding-bottom:16px;}
+.tab{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--text);opacity:.25;cursor:pointer;transition:opacity .2s;user-select:none;}
+.tab.active{opacity:.8;}
+.field{margin-bottom:24px;}
+.field input{width:100%;background:none;border:none;border-bottom:1px solid var(--input-border);outline:none;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:14px;font-weight:300;color:var(--text);padding:10px 0;transition:border-color .2s,color .6s;}
+.field input::placeholder{color:var(--text);opacity:.25;}
+.field input:focus{border-bottom-color:var(--text);}
+.submit{margin-top:40px;width:100%;background:none;border:none;border-bottom:1px solid var(--text);cursor:pointer;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--text);opacity:.6;padding:12px 0;text-align:left;transition:opacity .2s;}
+.submit:hover{opacity:1;}
+.msg{margin-top:20px;font-size:11px;font-style:italic;color:var(--text);opacity:.4;min-height:16px;}
+.toggle{position:fixed;top:36px;right:48px;display:flex;align-items:center;gap:10px;cursor:pointer;z-index:10;}
+.toggle-label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--text);opacity:.25;user-select:none;}
+.toggle-track{width:36px;height:18px;background:var(--toggle-bg);border-radius:9px;position:relative;border:1px solid var(--dim);}
+.toggle-knob{width:12px;height:12px;background:var(--toggle-knob);border-radius:50%;position:absolute;top:2px;left:2px;transition:transform .3s;}
+[data-theme="light"] .toggle-knob{transform:translateX(18px);}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+
+<div class="toggle" onclick="toggleTheme()">
+  <span class="toggle-label" id="theme-label">Dark</span>
+  <div class="toggle-track"><div class="toggle-knob"></div></div>
+</div>
+
+<div class="box">
+  <span class="title">Μετάνοια</span>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('login')">Enter</div>
+    <div class="tab" onclick="switchTab('signup')">Join</div>
+  </div>
+
+  <div id="login-form">
+    <div class="field"><input type="email" id="login-email" placeholder="email"></div>
+    <div class="field"><input type="password" id="login-pass" placeholder="password"></div>
+    <button class="submit" onclick="login()">Enter →</button>
+  </div>
+
+  <div id="signup-form" style="display:none">
+    <div class="field"><input type="email" id="signup-email" placeholder="email"></div>
+    <div class="field"><input type="password" id="signup-pass" placeholder="password"></div>
+    <button class="submit" onclick="signup()">Join →</button>
+  </div>
+
+  <div class="msg" id="msg"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="shared.js"></script>
+<script>
+const SUPABASE_URL = 'https://tnxaybkqyffrnhrrxocc.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRueGF5YmtxeWZmcm5ocnJ4b2NjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzMjk5NTMsImV4cCI6MjA4OTkwNTk1M30.J_E9kyP9xswFvlayAJ2qMq5Wa0rsn87oTT0pw1ydy_8';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Check if already logged in
+sb.auth.getSession().then(({ data }) => {
+  if (data.session) window.location.href = 'index.html';
+});
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('login-form').style.display = tab === 'login' ? 'block' : 'none';
+  document.getElementById('signup-form').style.display = tab === 'signup' ? 'block' : 'none';
+  document.getElementById('msg').textContent = '';
+}
+
+async function login() {
+  const email = document.getElementById('login-email').value;
+  const pass = document.getElementById('login-pass').value;
+  const msg = document.getElementById('msg');
+  msg.textContent = '—';
+  const { error } = await sb.auth.signInWithPassword({ email, password: pass });
+  if (error) { msg.textContent = error.message; return; }
+  window.location.href = 'index.html';
+}
+
+async function signup() {
+  const email = document.getElementById('signup-email').value;
+  const pass = document.getElementById('signup-pass').value;
+  const msg = document.getElementById('msg');
+  msg.textContent = '—';
+  const { error } = await sb.auth.signUp({ email, password: pass });
+  if (error) { msg.textContent = error.message; return; }
+  msg.textContent = 'Check your email to confirm.';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  const isLogin = document.getElementById('login-form').style.display !== 'none';
+  isLogin ? login() : signup();
+});
+</script>
+</body>
+</html>

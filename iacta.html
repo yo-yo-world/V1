@@ -59,6 +59,11 @@ footer{border-top:1px solid var(--dim);padding:32px 0;display:flex;justify-conte
   <span class="footer-left">metanoia.fyi</span>
   <span class="footer-right">"I fall. I return. We understand."</span>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const _sb = supabase.createClient("https://tnxaybkqyffrnhrrxocc.supabase.co","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRueGF5YmtxeWZmcm5ocnJ4b2NjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzMjk5NTMsImV4cCI6MjA4OTkwNTk1M30.J_E9kyP9xswFvlayAJ2qMq5Wa0rsn87oTT0pw1ydy_8");
+_sb.auth.getSession().then(({data})=>{ if(!data.session) window.location.href="auth.html"; });
+</script>
 <script src="shared.js"></script>
 </body>
 </html>
