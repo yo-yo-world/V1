@@ -5,12 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Μετάνοια</title>
 <link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
 </head>
 <body>
 <div id="bg"></div>
 <div class="page">
   <header>
-    <span class="logo">Μετάνοια</span>
+    <div class="logo-placeholder">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+        <circle cx="50" cy="50" r="45" stroke="currentColor" fill="none" stroke-width="2"/>
+        <text x="50" y="58" text-anchor="middle" font-size="28" fill="currentColor" font-family="Arial" font-weight="bold">M</text>
+      </svg>
+    </div>
     <nav>
       <a href="iacta.html">Iacta</a>
       <a href="sonus.html">Sonus</a>
@@ -25,18 +31,51 @@
   </header>
 </div>
 <main class="page">
-  <section class="manifesto">
+  <section class="cover">
+    <h1 class="cover-title">Μετάνοια</h1>
+    <p class="cover-line">From interpretation of reality to participation in it.</p>
+  </section>
+
+  <section class="bridge">
+    <p>This is not content to consume. It is a discipline of perception, encountered through interaction.</p>
+  </section>
+
+  <section class="excerpt">
+    <p>What appears as a cycle is a limitation of perception.</p>
+    <p>Dawn and dusk, birth and death, the yo-yo in the hand before the throw and the yo-yo returned to the hand, these are not repetitions.</p>
+    <p>They are projections of divided thinking attempting to stabilize itself.</p>
+    <button class="manifesto-link" onclick="openManifestoModal()">Read the full manifesto</button>
+  </section>
+
+  <section class="triad">
+    <a href="iacta.html" class="triad-item">
+      <span class="triad-name">Iacta</span>
+      <span class="triad-note">Release</span>
+    </a>
+    <a href="sonus.html" class="triad-item">
+      <span class="triad-name">Sonus</span>
+      <span class="triad-note">Resonance</span>
+    </a>
+    <a href="anima.html" class="triad-item">
+      <span class="triad-name">Anima</span>
+      <span class="triad-note">Presence</span>
+    </a>
+  </section>
+</main>
+
+<!-- Manifesto Modal -->
+<div id="manifesto-modal" class="modal">
+  <div class="modal-content manifesto-modal-content">
+    <button class="modal-close" onclick="closeManifestoModal()">×</button>
+    <h2 class="manifesto-full-title">Manifesto</h2>
     <div class="manifesto-body manifesto-pre">
-Μετάνοια
-
 From interpretation of reality to participation in it.
-
 What appears as a cycle is a limitation of perception.
-Dawn and dusk, 
+Dawn and dusk,
 Birth and death,
 The yo-yo in the hand before the throw
 And the yo-yo returned to the hand,
-These are not repetitions. 
+These are not repetitions.
 They are projections of divided thinking attempting to stabilize itself.
 Metanoia removes the division.
 Not by unifying concepts, but by eliminating the need for division altogether.
@@ -88,8 +127,199 @@ And perception, when disciplined,
 Does not withdraw from reality,
 It enters it.
     </div>
-  </section>
-</main>
+  </div>
+</div>
+
+<script>
+// Modal functions
+function openManifestoModal() {
+	const modal = document.getElementById('manifesto-modal');
+	if (modal) {
+		modal.style.display = 'flex';
+		// Prevent scrolling on body
+		document.body.style.overflow = 'hidden';
+	}
+}
+
+function closeManifestoModal() {
+	const modal = document.getElementById('manifesto-modal');
+	if (modal) {
+		modal.style.display = 'none';
+		// Re-enable scrolling
+		document.body.style.overflow = 'auto';
+	}
+}
+
+// Close modal when clicking outside content
+window.addEventListener('click', (e) => {
+	const modal = document.getElementById('manifesto-modal');
+	if (e.target === modal) {
+		closeManifestoModal();
+	}
+});
+
+// Close modal on Escape key
+window.addEventListener('keydown', (e) => {
+	if (e.key === 'Escape') {
+		closeManifestoModal();
+	}
+});
+
+// P5.js Particle Animation with Theme Support
+let isMobile = /iPhone|iPod|Android/i.test(navigator.userAgent);
+let repel_radius; // distance from mouse at which repulsion starts
+let radius_;
+let angle = 0;
+let points = [];
+const particles = 8000;
+const attraction = 0.01; // pulled back to their rotating home
+const damping = 0.9; // friction, keeps motion smooth
+const repel_strength = 28;
+
+// Theme colors
+let bgColor;
+let particleColor;
+let p5Instance;
+
+function getThemeColors() {
+	const root = document.documentElement;
+	const computedStyle = getComputedStyle(root);
+	const bg = computedStyle.getPropertyValue('--bg').trim();
+	const text = computedStyle.getPropertyValue('--text').trim();
+	
+	// Convert hex to RGB for p5.js
+	const bgRGB = hexToRgb(bg);
+	const textRGB = hexToRgb(text);
+	
+	return { bg: bgRGB, text: textRGB };
+}
+
+function hexToRgb(hex) {
+	const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+	return result ? [
+		parseInt(result[1], 16),
+		parseInt(result[2], 16),
+		parseInt(result[3], 16)
+	] : [255, 255, 255];
+}
+
+function setup() {
+	// Get theme colors
+	const themeColors = getThemeColors();
+	bgColor = themeColors.bg;
+	particleColor = themeColors.text;
+	
+	if (isMobile) {
+		createCanvas(window.innerWidth, window.innerHeight);
+		radius_ = 160;
+		repel_radius = 60;
+	} else {
+		createCanvas(window.innerWidth, window.innerHeight);
+		radius_ = 250;
+		repel_radius = 90;
+	}
+	
+	// Position canvas as background
+	let canvas = document.querySelector('canvas');
+	canvas.style.position = 'fixed';
+	canvas.style.top = '0';
+	canvas.style.left = '0';
+	canvas.style.zIndex = '0';
+	canvas.style.pointerEvents = 'auto';
+	document.body.insertBefore(canvas, document.body.firstChild);
+
+	pixelDensity(1); 
+	stroke(particleColor[0], particleColor[1], particleColor[2]); 
+	strokeWeight(2);
+	
+	// fill points array
+	for (let i = 0; i < particles; i++) {
+		points.push({
+			index: i,
+			pos: createVector(0, 0),
+			vel: createVector(0, 0)
+		});
+	}
+	// iniciate them at angle = 0
+	angle = 0; 
+	updateTargets();
+	for (let p of points) p.vel.set(0, 0);
+	
+	// Listen for theme changes
+	watchThemeChanges();
+}
+
+function watchThemeChanges() {
+	const observer = new MutationObserver(() => {
+		// Re-get theme colors when data-theme attribute changes
+		const themeColors = getThemeColors();
+		bgColor = themeColors.bg;
+		particleColor = themeColors.text;
+		stroke(particleColor[0], particleColor[1], particleColor[2]);
+	});
+	
+	observer.observe(document.documentElement, {
+		attributes: true,
+		attributeFilter: ['data-theme']
+	});
+	
+	// Handle window resize
+	window.addEventListener('resize', () => {
+		resizeCanvas(window.innerWidth, window.innerHeight);
+	});
+}
+
+function draw() {
+	background(bgColor[0], bgColor[1], bgColor[2]);
+	translate(width / 2, height / 2);
+
+	let mouse = createVector(mouseX - width / 2, mouseY - height / 2);
+
+	for (let p of points) {
+		let i = p.index;
+
+		// compute the rotating "home" position
+		let homeX = sin(i + angle) * sin(i * i) * radius_;
+		let homeY = cos(i * i) * radius_;
+		let home = createVector(homeX, homeY);
+
+		// spring force toward home ----
+		let toHome = p5.Vector.sub(home, p.pos);
+		let spring = toHome.mult(attraction);
+		p.vel.add(spring);
+
+		// mouse repulsion (strong when very close) ----
+		let awayFromMouse = p5.Vector.sub(p.pos, mouse);
+		let distSq = awayFromMouse.magSq();
+		if (distSq > 0.1 && distSq < repel_radius * repel_radius) {
+			let distance = sqrt(distSq);
+			awayFromMouse.normalize();
+			// natural falloff
+			let repel = repel_strength * (1 - distance / repel_radius);
+			awayFromMouse.mult(repel);
+			p.vel.add(awayFromMouse);
+		}
+
+		// damping and move
+		p.vel.mult(damping);
+		p.pos.add(p.vel);
+
+		point(p.pos.x, p.pos.y);
+	}
+	angle += 0.01;
+}
+
+// put the initial positions right
+function updateTargets() {
+	for (let p of points) {
+		let i = p.index;
+		let x = sin(i + angle) * sin(i * i) * radius_;
+		let y = cos(i * i) * radius_;
+		p.pos.set(x, y);
+	}
+}
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script>
