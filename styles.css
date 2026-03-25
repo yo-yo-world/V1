@@ -484,11 +484,15 @@ body.auth-page .toggle {
   }
 
   nav {
-    display: none;
+    display: flex;
+    gap: 12px;
+    font-size: 8px;
+    flex-wrap: wrap;
   }
 
   header {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto 1fr auto;
+    gap: 12px;
   }
 
   .cover {

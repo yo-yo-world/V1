@@ -172,8 +172,8 @@ let radius_;
 let angle = 0;
 let points = [];
 const particles = 8000;
-const attraction = 0.01; // pulled back to their rotating home
-const damping = 0.9; // friction, keeps motion smooth
+const attraction = 0.005; // pulled back to their rotating home (slowed)
+const damping = 0.95; // friction, keeps motion smooth (slowed)
 const repel_strength = 28;
 
 // Theme colors
@@ -306,7 +306,7 @@ function draw() {
 
 		point(p.pos.x, p.pos.y);
 	}
-	angle += 0.01;
+	angle += 0.003; // slower rotation speed
 }
 
 // put the initial positions right
