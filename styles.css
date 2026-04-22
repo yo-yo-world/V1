@@ -522,3 +522,196 @@ body.auth-page .toggle {
     padding: 0;
   }
 }
+
+/* Sonus page styles */
+.disc-shelf {
+  display: flex;
+  padding: 48px 0;
+  overflow-x: auto;
+  gap: 0;
+}
+
+.disc {
+  width: 48px;
+  height: 400px;
+  background: var(--dim);
+  transition: width 0.5s ease-in-out;
+  cursor: pointer;
+  overflow: hidden;
+  border-right: 1px solid var(--bg);
+}
+
+.disc.open {
+  width: 680px;
+}
+
+.disc-spine {
+  width: 48px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--dim);
+}
+
+.spine-label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 14px;
+  color: var(--text);
+  opacity: 0.7;
+  letter-spacing: 0.1em;
+}
+
+.disc.open .disc-spine {
+  display: none;
+}
+
+.disc-expanded {
+  display: none;
+  width: 680px;
+  height: 100%;
+  background: var(--bg);
+  border: 1px solid var(--dim);
+}
+
+.disc.open .disc-expanded {
+  display: flex;
+}
+
+.disc-info {
+  flex: 1;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.disc-num {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text);
+  opacity: 0.6;
+  margin-bottom: 16px;
+}
+
+.disc-title {
+  font-size: 24px;
+  font-weight: 300;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.disc-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin-bottom: 24px;
+}
+
+.disc-tracklist {
+  font-size: 12px;
+  line-height: 1.8;
+  opacity: 0.8;
+  margin-bottom: 24px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.disc-tracklist div {
+  margin-bottom: 4px;
+}
+
+.soundcloud-iframe {
+  width: 100%;
+  height: 166px;
+  border: 0;
+  margin-top: 24px;
+}
+
+.disc-visual {
+  flex: 0 0 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0;
+  background: var(--dim);
+  position: relative;
+  overflow: auto;
+}
+
+.disc-visual iframe {
+  width: 100%;
+  height: calc(100% + 80px);
+  border: 0;
+  display: block;
+  margin-top: -3px;
+  margin-bottom: -80px;
+}
+
+.soundcloud-wrapper {
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+  width: 100%;
+  clip-path: inset(0 0 60px 0);
+}
+
+.disc-svg {
+  width: 200px;
+  height: 200px;
+  transition: transform 0.5s;
+}
+
+.disc.playing .disc-svg {
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.play-btn {
+  margin-top: 20px;
+  background: none;
+  border: 1px solid var(--text);
+  color: var(--text);
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.play-btn:hover {
+  opacity: 1;
+}
+
+/* Disc 001 specific styles */
+.disc[data-disc="001"].open .disc-expanded {
+  background: #4caf50;
+}
+
+.disc[data-disc="001"] .disc-spine {
+  background: #4caf50;
+  align-items: center;
+}
+
+.disc[data-disc="001"] .disc-info {
+  background: #4caf50;
+}
+
+.disc[data-disc="001"] .disc-info,
+.disc[data-disc="001"] .disc-info * {
+  color: #0a1a0a;
+}
+
+.disc[data-disc="001"] .disc-visual .play-btn {
+  color: #0a1a0a;
+  border-color: #0a1a0a;
+}

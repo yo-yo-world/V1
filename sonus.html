@@ -28,10 +28,89 @@
       </div>
     </div>
   </header>
-  <div class="empty">
-    <span class="empty-label">— Sonus</span>
-    <h1 class="empty-title">Sonus.</h1>
-    <p class="empty-note">This space is forming.</p>
+  <div class="disc-shelf">
+    <div class="disc" data-disc="001">
+      <div class="disc-spine">
+        <span class="spine-label">METANOIA — GENESIS — 001</span>
+      </div>
+      <div class="disc-expanded">
+        <div class="disc-info">
+          <h2 class="disc-title">Metanoia — Genesis</h2>
+          <p class="disc-desc">There is a point where roads cross.<br>There are places where steps begin.<br>There is a place where both are met.</p>
+          <div class="disc-tracklist">
+            <div>01. Xerrox Monophaser 2 — Alva Noto</div>
+            <div>02. Uni Blue — Alva Noto</div>
+            <div>03. Acid Bells — Efdemin</div>
+            <div>04. Ess Gee — Underworld</div>
+            <div>05. Elaenia — Floating Points</div>
+            <div>06. Seething — Max Cooper</div>
+            <div>07. data.flex — Ryoji Ikeda</div>
+            <div>08. Green Pulse — Xenia Reaper</div>
+            <div>09. (' ∀ `)ノ～ ♡ — Xenia Reaper</div>
+          </div>
+          <!-- SoundCloud iframe would go here when audio is uploaded -->
+        </div>
+        <div class="disc-visual">
+          <div class="soundcloud-wrapper">
+            <iframe width="100%" height="600" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2307194783&color=%232f2f2f&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="disc" data-disc="002">
+      <div class="disc-spine">
+        <span class="spine-label">002</span>
+      </div>
+      <div class="disc-expanded">
+        <div class="disc-info">
+          <div class="disc-num">002</div>
+          <h2 class="disc-title">Harmonies of Change</h2>
+          <p class="disc-desc">Rhythms of transformation, where dissonance resolves into unity and chaos finds its cadence.</p>
+          <ol class="disc-tracklist">
+            <li>Discordant Dawn</li>
+            <li>Shifting Tones</li>
+            <li>Unified Pulse</li>
+            <li>Metamorphic Echo</li>
+          </ol>
+        </div>
+        <div class="disc-visual">
+          <svg class="disc-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="90" fill="var(--dim)" stroke="var(--text)" stroke-width="2"/>
+            <circle cx="100" cy="100" r="70" fill="none" stroke="var(--text)" stroke-width="1" opacity="0.5"/>
+            <circle cx="100" cy="100" r="50" fill="none" stroke="var(--text)" stroke-width="1" opacity="0.3"/>
+            <circle cx="100" cy="100" r="15" fill="var(--text)"/>
+          </svg>
+          <button class="play-btn">Play</button>
+        </div>
+      </div>
+    </div>
+    <div class="disc" data-disc="003">
+      <div class="disc-spine">
+        <span class="spine-label">003</span>
+      </div>
+      <div class="disc-expanded">
+        <div class="disc-info">
+          <div class="disc-num">003</div>
+          <h2 class="disc-title">Symphony of the Soul</h2>
+          <p class="disc-desc">Inner vibrations awakening, where the heart's rhythm aligns with cosmic frequencies.</p>
+          <ol class="disc-tracklist">
+            <li>Heartbeat Cadence</li>
+            <li>Soul's Vibration</li>
+            <li>Cosmic Alignment</li>
+            <li>Eternal Resonance</li>
+          </ol>
+        </div>
+        <div class="disc-visual">
+          <svg class="disc-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="90" fill="var(--dim)" stroke="var(--text)" stroke-width="2"/>
+            <circle cx="100" cy="100" r="70" fill="none" stroke="var(--text)" stroke-width="1" opacity="0.5"/>
+            <circle cx="100" cy="100" r="50" fill="none" stroke="var(--text)" stroke-width="1" opacity="0.3"/>
+            <circle cx="100" cy="100" r="15" fill="var(--text)"/>
+          </svg>
+          <button class="play-btn">Play</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -41,5 +120,36 @@ const _sb = getSupabase();
 _sb.auth.getSession().then(({data})=>{ if(!data.session) window.location.href="auth.html"; });
 </script>
 <script src="shared.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const discs = document.querySelectorAll('.disc');
+  
+  discs.forEach(disc => {
+    disc.addEventListener('click', () => {
+      const isOpen = disc.classList.contains('open');
+      // Close all discs and stop playing
+      discs.forEach(d => {
+        d.classList.remove('open', 'playing');
+        const btn = d.querySelector('.play-btn');
+        if (btn) btn.textContent = 'Play';
+      });
+      // Open this disc if it wasn't open
+      if (!isOpen) {
+        disc.classList.add('open');
+      }
+    });
+  });
+  
+  // Play buttons
+  document.querySelectorAll('.play-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent disc click
+      const disc = btn.closest('.disc');
+      disc.classList.toggle('playing');
+      btn.textContent = disc.classList.contains('playing') ? 'Pause' : 'Play';
+    });
+  });
+});
+</script>
 </body>
 </html>
