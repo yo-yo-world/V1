@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="el" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Μετάνοια</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; connect-src 'self' https://tnxaybkqyffrnhrrxocc.supabase.co wss://tnxaybkqyffrnhrrxocc.supabase.co; frame-src 'self';">
 <link rel="stylesheet" href="styles.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
 </head>
@@ -23,10 +24,10 @@
       <a href="anima.html">Anima</a>
     </nav>
     <div class="header-right">
-      <div class="toggle" onclick="toggleTheme()">
+      <button type="button" class="toggle" aria-pressed="false">
         <span class="toggle-label" id="theme-label">Dark</span>
         <div class="toggle-track"><div class="toggle-knob"></div></div>
-      </div>
+      </button>
     </div>
   </header>
 </div>
@@ -153,11 +154,12 @@ window.addEventListener('keydown', (e) => {
 
 // P5.js Particle Animation with Theme Support
 let isMobile = /iPhone|iPod|Android/i.test(navigator.userAgent);
+const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 let repel_radius; // distance from mouse at which repulsion starts
 let radius_;
 let angle = 0;
 let points = [];
-const particles = 8000;
+let particles = isMobile ? 1200 : 3200;
 const attraction = 0.005; // pulled back to their rotating home (slowed)
 const damping = 0.95; // friction, keeps motion smooth (slowed)
 const repel_strength = 28;
@@ -216,7 +218,13 @@ function setup() {
 
 	pixelDensity(1); 
 	stroke(particleColor[0], particleColor[1], particleColor[2]); 
-	strokeWeight(2);
+	strokeWeight(isMobile ? 1.5 : 2);
+	frameRate(30);
+
+	if (prefersReducedMotion) {
+		noLoop();
+		return;
+	}
 	
 	// fill points array
 	for (let i = 0; i < particles; i++) {
@@ -308,10 +316,6 @@ function updateTargets() {
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
-<script>
-const _sb = getSupabase();
-_sb.auth.getSession().then(({data})=>{ if(!data.session) window.location.href="auth.html"; });
-</script>
 <script src="shared.js"></script>
 </body>
 </html>

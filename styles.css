@@ -110,6 +110,16 @@ nav a.active {
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+}
+
+.toggle:focus-visible {
+  outline: 1px solid color-mix(in srgb, var(--text) 55%, transparent);
+  outline-offset: 6px;
 }
 
 .toggle-label {
@@ -594,7 +604,6 @@ body.auth-page .toggle {
   display: flex;
   flex-direction: column;
   justify-content: center;
->>>>>>> 4762aa1a4f62627518bc2450a35424ddab518422
 }
 
 .disc-num {
@@ -715,4 +724,182 @@ body.auth-page .toggle {
 .disc[data-disc="001"] .disc-visual .play-btn {
   color: #0a1a0a;
   border-color: #0a1a0a;
+}
+
+/* Anima background layers */
+#anima-canvas-container {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+}
+
+#anima-canvas-container canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0.85;
+}
+
+body.anima-page .page {
+  padding-bottom: 48px;
+}
+
+body.anima-page main.page {
+  margin-top: 6px;
+}
+
+/* Anima — bookshelf page */
+body.anima-page .anima-stage {
+  min-height: calc(100vh - var(--header-offset, 44px));
+  display: grid;
+  place-items: start;
+  padding: 2px 0 64px;
+  position: relative;
+  z-index: 2;
+}
+
+.anima-bookshelf {
+  display: grid;
+  justify-items: start;
+  gap: 10px;
+  margin-left: clamp(18px, 4vw, 48px);
+}
+
+.books {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.shelf-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--dim) 65%, transparent),
+    var(--dim),
+    color-mix(in srgb, var(--dim) 65%, transparent)
+  );
+  opacity: 0.95;
+  box-shadow: 0 6px 18px color-mix(in srgb, #000 25%, transparent);
+}
+
+.anima-book {
+  width: 32px;
+  height: 180px;
+  border: 0;
+  padding: 0;
+  border-radius: 0;
+  background: var(--dim);
+  color: var(--bg);
+  cursor: default;
+  font: inherit;
+  display: grid;
+  place-items: center;
+  transition: transform 0.6s cubic-bezier(.16,1,.3,1);
+}
+
+.anima-book.is-real {
+  background: var(--text);
+  cursor: pointer;
+}
+
+.anima-book.is-real:hover {
+  transform: translateY(-24px);
+}
+
+.anima-book:focus-visible {
+  outline: 1px solid color-mix(in srgb, var(--text) 55%, transparent);
+  outline-offset: 6px;
+}
+
+.anima-book-title {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.92;
+}
+
+/* Popup */
+.anima-popup {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+}
+
+.anima-popup-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.anima-popup-box {
+  position: relative;
+  margin: 10vh auto;
+  max-width: 600px;
+  width: calc(100% - 32px);
+  background: var(--bg);
+  border: 1px solid var(--dim);
+  padding: 64px 56px;
+  max-height: calc(100vh - 20vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.anima-popup-back {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: var(--text);
+  opacity: 0.7;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 10px;
+  margin-bottom: 28px;
+}
+
+.anima-popup-back:hover {
+  opacity: 1;
+}
+
+.anima-popup-date {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: 10px;
+}
+
+.anima-popup-title {
+  font-size: 22px;
+  font-weight: 300;
+  margin-bottom: 22px;
+  line-height: 1.2;
+}
+
+.anima-popup-body {
+  font-size: 15px;
+  line-height: 2;
+  opacity: 0.65;
+}
+
+.anima-popup-body p {
+  margin-bottom: 16px;
+}
+
+@media (max-width: 640px) {
+  .anima-popup-box {
+    padding: 44px 24px;
+    margin: 7vh auto;
+  }
 }

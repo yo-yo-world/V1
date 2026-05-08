@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="el" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Μετάνοια</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; connect-src 'self' https://tnxaybkqyffrnhrrxocc.supabase.co wss://tnxaybkqyffrnhrrxocc.supabase.co; frame-src 'self';">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body class="auth-page">
 <div id="bg"></div>
 
-<div class="toggle" onclick="toggleTheme()">
+<button type="button" class="toggle" aria-pressed="false">
   <span class="toggle-label" id="theme-label">Dark</span>
   <div class="toggle-track"><div class="toggle-knob"></div></div>
-</div>
+</button>
 
 <div class="box">
   <span class="title">Μετάνοια</span>

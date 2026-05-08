@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="el" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Μετάνοια — Iacta</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; connect-src 'self' https://tnxaybkqyffrnhrrxocc.supabase.co wss://tnxaybkqyffrnhrrxocc.supabase.co; frame-src 'self';">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -22,10 +23,10 @@
       <a href="anima.html">Anima</a>
     </nav>
     <div class="header-right">
-      <div class="toggle" onclick="toggleTheme()">
+      <button type="button" class="toggle" aria-pressed="false">
         <span class="toggle-label" id="theme-label">Dark</span>
         <div class="toggle-track"><div class="toggle-knob"></div></div>
-      </div>
+      </button>
     </div>
   </header>
   <div class="empty">
@@ -36,10 +37,6 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
-<script>
-const _sb = getSupabase();
-_sb.auth.getSession().then(({data})=>{ if(!data.session) window.location.href="auth.html"; });
-</script>
 <script src="shared.js"></script>
 </body>
 </html>
