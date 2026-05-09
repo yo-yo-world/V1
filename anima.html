@@ -4,11 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Μετάνοια — Anima</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; connect-src 'self' https://tnxaybkqyffrnhrrxocc.supabase.co wss://tnxaybkqyffrnhrrxocc.supabase.co; frame-src 'self';">
 <link rel="stylesheet" href="styles.css">
-<script src="vendor/p5.min.js"></script>
 </head>
-<body class="anima-page">
+<body class="anima-page" data-require-auth="true">
 <div id="bg"></div>
 <div id="anima-canvas-container" aria-hidden="true"></div>
 <div class="page">
@@ -25,7 +23,7 @@
       <a href="anima.html">Anima</a>
     </nav>
     <div class="header-right">
-      <button type="button" class="toggle" aria-pressed="false">
+      <button type="button" class="toggle" aria-pressed="true">
         <span class="toggle-label" id="theme-label">Dark</span>
         <div class="toggle-track"><div class="toggle-knob"></div></div>
       </button>
@@ -33,27 +31,18 @@
   </header>
 </div>
 
-<main class="page anima-stage" id="anima-stage">
-  <section class="anima-bookshelf" aria-label="Anima bookshelf">
-    <div class="books" id="books"></div>
-    <div class="shelf-line" aria-hidden="true"></div>
-  </section>
-</main>
-
-<div class="anima-popup" id="post-popup" role="dialog" aria-modal="true" aria-labelledby="post-title" aria-hidden="true">
-  <div class="anima-popup-overlay" data-close-popup></div>
-  <div class="anima-popup-box" role="document">
-    <button type="button" class="anima-popup-back" data-close-popup>← Anima</button>
-    <div class="anima-popup-date" id="post-date"></div>
-    <h2 class="anima-popup-title" id="post-title"></h2>
-    <div class="anima-popup-body" id="post-body"></div>
+<!-- Post Modal -->
+<div id="post-modal" class="modal" aria-hidden="true">
+  <div class="modal-content manifesto-modal-content" role="dialog" aria-modal="true" aria-labelledby="post-title">
+    <button type="button" class="modal-close" data-close-post aria-label="Close">×</button>
+    <h2 class="manifesto-full-title" id="post-title">—</h2>
+    <div class="manifesto-body" id="post-body"></div>
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script src="shared.js"></script>
-<script src="anima-books.js"></script>
-<script src="anima-sketch.js"></script>
+<script src="anima-firegl.js"></script>
 </body>
 </html>

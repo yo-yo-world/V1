@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="el" data-theme="dark">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Μετάνοια</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; connect-src 'self' https://tnxaybkqyffrnhrrxocc.supabase.co wss://tnxaybkqyffrnhrrxocc.supabase.co; frame-src 'self';">
 <link rel="stylesheet" href="styles.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+<script src="vendor/p5.min.js"></script>
 </head>
-<body>
+<body data-require-auth="true">
 <div id="bg"></div>
 <div class="page">
   <header>
@@ -24,7 +23,7 @@
       <a href="anima.html">Anima</a>
     </nav>
     <div class="header-right">
-      <button type="button" class="toggle" aria-pressed="false">
+      <button type="button" class="toggle" aria-pressed="true">
         <span class="toggle-label" id="theme-label">Dark</span>
         <div class="toggle-track"><div class="toggle-knob"></div></div>
       </button>
@@ -154,12 +153,11 @@ window.addEventListener('keydown', (e) => {
 
 // P5.js Particle Animation with Theme Support
 let isMobile = /iPhone|iPod|Android/i.test(navigator.userAgent);
-const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 let repel_radius; // distance from mouse at which repulsion starts
 let radius_;
 let angle = 0;
 let points = [];
-let particles = isMobile ? 1200 : 3200;
+const particles = 8000;
 const attraction = 0.005; // pulled back to their rotating home (slowed)
 const damping = 0.95; // friction, keeps motion smooth (slowed)
 const repel_strength = 28;
@@ -167,18 +165,17 @@ const repel_strength = 28;
 // Theme colors
 let bgColor;
 let particleColor;
-let p5Instance;
 
 function getThemeColors() {
 	const root = document.documentElement;
 	const computedStyle = getComputedStyle(root);
 	const bg = computedStyle.getPropertyValue('--bg').trim();
 	const text = computedStyle.getPropertyValue('--text').trim();
-	
+
 	// Convert hex to RGB for p5.js
 	const bgRGB = hexToRgb(bg);
 	const textRGB = hexToRgb(text);
-	
+
 	return { bg: bgRGB, text: textRGB };
 }
 
@@ -196,7 +193,7 @@ function setup() {
 	const themeColors = getThemeColors();
 	bgColor = themeColors.bg;
 	particleColor = themeColors.text;
-	
+
 	if (isMobile) {
 		createCanvas(window.innerWidth, window.innerHeight);
 		radius_ = 160;
@@ -206,7 +203,7 @@ function setup() {
 		radius_ = 250;
 		repel_radius = 90;
 	}
-	
+
 	// Position canvas as background
 	let canvas = document.querySelector('canvas');
 	canvas.style.position = 'fixed';
@@ -216,16 +213,10 @@ function setup() {
 	canvas.style.pointerEvents = 'auto';
 	document.body.insertBefore(canvas, document.body.firstChild);
 
-	pixelDensity(1); 
-	stroke(particleColor[0], particleColor[1], particleColor[2]); 
-	strokeWeight(isMobile ? 1.5 : 2);
-	frameRate(30);
+	pixelDensity(1);
+	stroke(particleColor[0], particleColor[1], particleColor[2]);
+	strokeWeight(2);
 
-	if (prefersReducedMotion) {
-		noLoop();
-		return;
-	}
-	
 	// fill points array
 	for (let i = 0; i < particles; i++) {
 		points.push({
@@ -235,10 +226,10 @@ function setup() {
 		});
 	}
 	// iniciate them at angle = 0
-	angle = 0; 
+	angle = 0;
 	updateTargets();
 	for (let p of points) p.vel.set(0, 0);
-	
+
 	// Listen for theme changes
 	watchThemeChanges();
 }
@@ -251,12 +242,12 @@ function watchThemeChanges() {
 		particleColor = themeColors.text;
 		stroke(particleColor[0], particleColor[1], particleColor[2]);
 	});
-	
+
 	observer.observe(document.documentElement, {
 		attributes: true,
 		attributeFilter: ['data-theme']
 	});
-	
+
 	// Handle window resize
 	window.addEventListener('resize', () => {
 		resizeCanvas(window.innerWidth, window.innerHeight);

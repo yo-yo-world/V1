@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Same geometry as Sonus inline SVG. If opened as file:// or embedded via <img src="this.svg">,
+  nested raster may not show in some browsers; use inline SVG on the page or <object>.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="466" height="416" viewBox="0 0 233 208">
+  <title>Closed CD jewel case front</title>
+  <desc>Booklet window tpl-cover-art: rectangle beside spine.</desc>
+
+  <defs>
+    <clipPath id="tpl-cover-art" clipPathUnits="userSpaceOnUse">
+      <rect x="66" y="44" width="120" height="120"/>
+    </clipPath>
+  </defs>
+
+  <rect x="52" y="44" width="134" height="120" fill="#ffffff" stroke="#000000" stroke-width="2" vector-effect="non-scaling-stroke"/>
+
+  <rect x="52" y="44" width="14" height="120" fill="#000000"/>
+
+  <g id="jewel-cover-placeholder" clip-path="url(#tpl-cover-art)">
+    <image
+      href="metanoia-genesis-cover.png"
+      x="66"
+      y="44"
+      width="120"
+      height="120"
+      preserveAspectRatio="xMidYMid slice"
+    />
+  </g>
+
+  <rect x="66" y="44" width="120" height="120" fill="none" stroke="#000000" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+
+</svg>

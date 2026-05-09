@@ -1,19 +1,27 @@
 :root[data-theme="dark"] {
-  --bg: #0c0b0a;
-  --text: #f0ece6;
-  --dim: #1a1917;
-  --toggle-bg: #2a2826;
-  --toggle-knob: #dedad4;
-  --input-border: #2a2826;
+  --bg: #000000;
+  --text: #ffffff;
+  --dim: #1a1a1a;
+  --toggle-bg: #141414;
+  --toggle-knob: #ffffff;
+  --input-border: #333333;
+  --jewel-shell-fill: color-mix(in srgb, var(--dim) 78%, #383840);
+  --jewel-shell-stroke: color-mix(in srgb, var(--text) 48%, transparent);
+  --jewel-spine-fill: color-mix(in srgb, #080809 85%, var(--text));
+  --jewel-placeholder-fill: color-mix(in srgb, var(--dim) 58%, var(--text));
 }
 
 :root[data-theme="light"] {
-  --bg: #f5f4f0;
-  --text: #0b0b0a;
-  --dim: #e0ddd7;
-  --toggle-bg: #dedad4;
-  --toggle-knob: #111110;
-  --input-border: #c0bdb8;
+  --bg: #ffffff;
+  --text: #000000;
+  --dim: #e8e8e8;
+  --toggle-bg: #ececec;
+  --toggle-knob: #000000;
+  --input-border: #cccccc;
+  --jewel-shell-fill: #ffffff;
+  --jewel-shell-stroke: #141414;
+  --jewel-spine-fill: #121212;
+  --jewel-placeholder-fill: #d5dae2;
 }
 
 * {
@@ -32,6 +40,10 @@ body {
   transition: background 0.6s, color 0.6s;
 }
 
+body.anima-page {
+  overflow: hidden; /* one-pager */
+}
+
 #bg {
   position: fixed;
   inset: 0;
@@ -39,9 +51,23 @@ body {
   pointer-events: none;
 }
 
+body.sonus-page #bg {
+  background: transparent !important;
+}
+
+/* Anima Canvas */
+#anima-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: auto; /* links are inside canvas */
+}
+
 .page {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: 960px;
   margin: 0 auto;
   padding: 0 48px;
@@ -86,18 +112,19 @@ nav {
 }
 
 nav a {
-  font-size: 10px;
+  font-size: 12px;
+  font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--text);
-  opacity: 0.55;
+  opacity: 0.88;
   text-decoration: none;
   transition: opacity 0.2s;
 }
 
 nav a:hover,
 nav a.active {
-  opacity: 0.8;
+  opacity: 1;
 }
 
 .header-right {
@@ -117,42 +144,37 @@ nav a.active {
   color: inherit;
 }
 
-.toggle:focus-visible {
-  outline: 1px solid color-mix(in srgb, var(--text) 55%, transparent);
-  outline-offset: 6px;
-}
-
 .toggle-label {
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--text);
-  opacity: 0.5;
+  opacity: 0.78;
   user-select: none;
 }
 
 .toggle-track {
-  width: 36px;
-  height: 18px;
+  width: 44px;
+  height: 22px;
   background: var(--toggle-bg);
-  border-radius: 9px;
+  border-radius: 11px;
   position: relative;
-  border: 1px solid var(--dim);
+  border: 1px solid color-mix(in srgb, var(--text) 22%, var(--dim));
 }
 
 .toggle-knob {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   background: var(--toggle-knob);
   border-radius: 50%;
   position: absolute;
-  top: 2px;
-  left: 2px;
+  top: 3px;
+  left: 3px;
   transition: transform 0.3s;
 }
 
 [data-theme="light"] .toggle-knob {
-  transform: translateX(18px);
+  transform: translateX(22px);
 }
 
 .cover {
@@ -533,373 +555,226 @@ body.auth-page .toggle {
   }
 }
 
-/* Sonus page styles */
-.disc-shelf {
-  display: flex;
-  padding: 48px 0;
-  overflow-x: auto;
-  gap: 0;
+body.sonus-page {
+  min-height: 100vh;
 }
 
-.disc {
-  width: 48px;
-  height: 400px;
-  background: var(--dim);
-  transition: width 0.5s ease-in-out;
-  cursor: pointer;
-  overflow: hidden;
-  border-right: 1px solid var(--bg);
-}
-
-.disc.open {
-  width: 680px;
-}
-
-.disc-spine {
-  width: 48px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--dim);
-}
-
-.spine-label {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: 14px;
-  color: var(--text);
-  opacity: 0.7;
-  letter-spacing: 0.1em;
-}
-
-.disc.open .disc-spine {
-  display: none;
-}
-
-.disc-expanded {
-  display: none;
-  width: 680px;
-  min-height: 420px;
-  background: var(--bg);
-  border: 1px solid var(--dim);
-}
-
-.disc.open .disc-expanded {
-  display: grid;
-  grid-template-columns: 1fr 340px;
-}
-
-.disc-info {
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: #4caf50;
-}
-
-.disc-info {
-  flex: 1;
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.disc-num {
-  font-size: 10px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--text);
-  opacity: 0.6;
-  margin-bottom: 16px;
-}
-
-.disc-title {
-  font-size: 24px;
-  font-weight: 300;
-  margin-bottom: 16px;
-  line-height: 1.2;
-}
-
-.disc-desc {
-  font-size: 14px;
-  line-height: 1.6;
-  opacity: 0.9;
-  margin-bottom: 24px;
-}
-
-.disc-tracklist {
-  font-size: 12px;
-  line-height: 1.8;
-  opacity: 0.8;
-  margin-bottom: 24px;
-  padding-left: 0;
-  list-style: none;
-}
-
-.disc-tracklist div {
-  margin-bottom: 4px;
-}
-
-.soundcloud-iframe {
-  width: 100%;
-  height: 166px;
-  border: 0;
-  margin-top: 24px;
-}
-
-.disc-visual {
-  background: var(--dim);
+body.sonus-page > .page:first-of-type {
   position: relative;
+  z-index: 12;
+}
+
+body.sonus-page > main.page {
+  position: relative;
+  z-index: 2;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
-  height: 420px;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sonus-jewel-scene {
+  padding: clamp(12px, 4vh, 28px) 0 clamp(72px, 14vh, 140px);
+  max-width: 1152px; /* шире обычной .page (960), чтобы три крупных кейса в один ряд */
+}
+
+.sonus-jewel-pad {
+  width: 100%;
+}
+
+/* Сетка 3×N: второй ряд (Circle) в колонке 1 — строго под Genesis */
+.sonus-jewel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2.5vw, 28px);
+  width: 100%;
+  align-items: end;
+  justify-items: center;
+}
+
+.sonus-jewel-case-btn {
+  position: relative;
+  width: 100%;
+  max-width: 336px;
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+  transition: transform 0.3s cubic-bezier(0.22, 0.94, 0.28, 1);
+}
+
+.sonus-jewel-case-btn svg {
+  position: relative;
+  z-index: 2;
+}
+
+.sonus-jewel-case-btn:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--text) 55%, transparent);
+  outline-offset: 12px;
+}
+
+.sonus-jewel-case-btn:hover {
+  transform: scale(1.035);
+}
+
+.sonus-jewel-case-btn:active {
+  transform: scale(1.01);
+}
+
+.sonus-jewel-front-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 466 / 416;
+  filter: none;
+}
+
+body.sonus-page .modal {
+  z-index: 110;
+}
+
+.sonus-jewel-modal-sheet {
+  padding: 0;
+  max-width: none;
+  width: auto;
+  max-height: none;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  animation: none;
+  transform: none;
+}
+
+.sonus-open-wrap {
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
   padding: 0;
 }
 
-.disc-visual iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 500px;
-  border: 0;
+.sonus-open-case-svg {
+  width: min(945px, 100%);
+  height: auto;
+  display: block;
 }
 
-.soundcloud-wrapper {
-  overflow: hidden;
+.sonus-modal-native-audio {
+  width: min(432px, 100%);
+  margin-top: 6px;
+  height: 40px;
+}
+
+/* Booklet text inside left square (foreignObject) */
+.sonus-booklet {
+  width: 100%;
   height: 100%;
-  position: relative;
-  width: 100%;
-}
-
-.disc-svg {
-  width: 200px;
-  height: 200px;
-  transition: transform 0.5s;
-}
-
-.disc.playing .disc-svg {
-  animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.play-btn {
-  margin-top: 20px;
-  background: none;
-  border: 1px solid var(--text);
+  box-sizing: border-box;
+  padding: 18px 18px 14px;
   color: var(--text);
-  padding: 8px 16px;
-  cursor: pointer;
-  font-size: 10px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  opacity: 0.7;
-  transition: opacity 0.2s;
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.play-btn:hover {
-  opacity: 1;
+.sonus-booklet-inner {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-/* Disc 001 specific styles */
-.disc[data-disc="001"] .disc-spine {
-  background: #4caf50;
-  align-items: center;
+.sonus-booklet-title {
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  opacity: 0.92;
 }
 
-.disc[data-disc="001"] .disc-info {
-  background: #4caf50;
+.sonus-booklet-poem {
+  font-size: 12px;
+  line-height: 1.45;
+  opacity: 0.74;
 }
 
-.disc[data-disc="001"] .disc-info,
-.disc[data-disc="001"] .disc-info * {
-  color: #0a1a0a;
+.sonus-booklet-tracklist {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 12px;
+  line-height: 1.5;
+  opacity: 0.88;
 }
 
-.disc[data-disc="001"] .disc-visual .play-btn {
-  color: #0a1a0a;
-  border-color: #0a1a0a;
+.sonus-booklet-tracklist li + li {
+  margin-top: 4px;
 }
 
-/* Anima background layers */
+.sonus-jewel-modal-close {
+  top: 14px;
+  right: 14px;
+  font-size: 30px;
+  opacity: 0.72;
+}
+
+.sonus-open-case-svg #sonus-modal-disc {
+  transform-box: fill-box;
+  transform-origin: center;
+  pointer-events: none;
+  animation: sonusDiscSpin 1.2s linear infinite;
+  animation-play-state: paused;
+}
+
+.sonus-open-case-svg.is-disc-playing #sonus-modal-disc {
+  animation-play-state: running;
+}
+
+.sonus-open-case-svg .sonus-disc-ring-title-g {
+  pointer-events: none;
+}
+
+@keyframes sonusDiscSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Anima background layer (WebGL) */
 #anima-canvas-container {
   position: fixed;
   inset: 0;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
+  /* Safari fallback for dynamic viewport toolbars */
+  height: -webkit-fill-available;
   z-index: 1;
-  pointer-events: none;
+  pointer-events: auto;
 }
 
-#anima-canvas-container canvas {
+#anima-canvas-container .anima-firegl-canvas {
   display: block;
   width: 100% !important;
   height: 100% !important;
-  opacity: 0.85;
-}
-
-body.anima-page .page {
-  padding-bottom: 48px;
-}
-
-body.anima-page main.page {
-  margin-top: 6px;
-}
-
-/* Anima — bookshelf page */
-body.anima-page .anima-stage {
-  min-height: calc(100vh - var(--header-offset, 44px));
-  display: grid;
-  place-items: start;
-  padding: 2px 0 64px;
-  position: relative;
-  z-index: 2;
-}
-
-.anima-bookshelf {
-  display: grid;
-  justify-items: start;
-  gap: 10px;
-  margin-left: clamp(18px, 4vw, 48px);
-}
-
-.books {
-  display: flex;
-  align-items: flex-end;
-  gap: 2px;
-}
-
-.shelf-line {
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    color-mix(in srgb, var(--dim) 65%, transparent),
-    var(--dim),
-    color-mix(in srgb, var(--dim) 65%, transparent)
-  );
-  opacity: 0.95;
-  box-shadow: 0 6px 18px color-mix(in srgb, #000 25%, transparent);
-}
-
-.anima-book {
-  width: 32px;
-  height: 180px;
-  border: 0;
-  padding: 0;
-  border-radius: 0;
-  background: var(--dim);
-  color: var(--bg);
-  cursor: default;
-  font: inherit;
-  display: grid;
-  place-items: center;
-  transition: transform 0.6s cubic-bezier(.16,1,.3,1);
-}
-
-.anima-book.is-real {
-  background: var(--text);
-  cursor: pointer;
-}
-
-.anima-book.is-real:hover {
-  transform: translateY(-24px);
-}
-
-.anima-book:focus-visible {
-  outline: 1px solid color-mix(in srgb, var(--text) 55%, transparent);
-  outline-offset: 6px;
-}
-
-.anima-book-title {
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 8px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  opacity: 0.92;
-}
-
-/* Popup */
-.anima-popup {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 40;
-}
-
-.anima-popup-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.9);
-}
-
-.anima-popup-box {
-  position: relative;
-  margin: 10vh auto;
-  max-width: 600px;
-  width: calc(100% - 32px);
-  background: var(--bg);
-  border: 1px solid var(--dim);
-  padding: 64px 56px;
-  max-height: calc(100vh - 20vh);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-}
-
-.anima-popup-back {
-  background: none;
-  border: 0;
-  padding: 0;
-  cursor: pointer;
-  font: inherit;
-  color: var(--text);
-  opacity: 0.7;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  font-size: 10px;
-  margin-bottom: 28px;
-}
-
-.anima-popup-back:hover {
   opacity: 1;
 }
 
-.anima-popup-date {
-  font-size: 10px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  opacity: 0.55;
-  margin-bottom: 10px;
-}
-
-.anima-popup-title {
-  font-size: 22px;
-  font-weight: 300;
-  margin-bottom: 22px;
-  line-height: 1.2;
-}
-
-.anima-popup-body {
-  font-size: 15px;
-  line-height: 2;
-  opacity: 0.65;
-}
-
-.anima-popup-body p {
-  margin-bottom: 16px;
-}
-
-@media (max-width: 640px) {
-  .anima-popup-box {
-    padding: 44px 24px;
-    margin: 7vh auto;
-  }
+/* Ensure modal overlays WebGL */
+body.anima-page .modal {
+  z-index: 120;
 }

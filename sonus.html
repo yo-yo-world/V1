@@ -4,15 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Μετάνοια — Sonus</title>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; connect-src 'self' https://tnxaybkqyffrnhrrxocc.supabase.co wss://tnxaybkqyffrnhrrxocc.supabase.co; frame-src 'self' https://w.soundcloud.com; child-src https://w.soundcloud.com;">
 <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="sonus-page" data-require-auth="true">
 <div id="bg"></div>
 <div class="page">
   <header>
     <div class="logo-placeholder">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true">
         <circle cx="50" cy="50" r="45" stroke="currentColor" fill="none" stroke-width="2"/>
         <text x="50" y="58" text-anchor="middle" font-size="28" fill="currentColor" font-family="Arial" font-weight="bold">M</text>
       </svg>
@@ -23,130 +22,362 @@
       <a href="anima.html">Anima</a>
     </nav>
     <div class="header-right">
-      <button type="button" class="toggle" aria-pressed="false">
+      <button type="button" class="toggle" aria-pressed="true">
         <span class="toggle-label" id="theme-label">Dark</span>
         <div class="toggle-track"><div class="toggle-knob"></div></div>
       </button>
     </div>
   </header>
-  <div class="disc-shelf">
-    <div class="disc" data-disc="001">
-      <div class="disc-spine">
-        <span class="spine-label">METANOIA — GENESIS — 001</span>
-      </div>
-      <div class="disc-expanded">
-        <div class="disc-info">
-          <h2 class="disc-title">Metanoia — Genesis</h2>
-          <p class="disc-desc">There is a point where roads cross.<br>There are places where steps begin.<br>There is a place where both are met.</p>
-          <div class="disc-tracklist">
-            <div>01. Xerrox Monophaser 2 — Alva Noto</div>
-            <div>02. Uni Blue — Alva Noto</div>
-            <div>03. Acid Bells — Efdemin</div>
-            <div>04. Ess Gee — Underworld</div>
-            <div>05. Elaenia — Floating Points</div>
-            <div>06. Seething — Max Cooper</div>
-            <div>07. data.flex — Ryoji Ikeda</div>
-            <div>08. Green Pulse — Xenia Reaper</div>
-            <div>09. (' ∀ `)ノ～ ♡ — Xenia Reaper</div>
-          </div>
-          <!-- SoundCloud iframe would go here when audio is uploaded -->
-        </div>
-        <div class="disc-visual">
-          <div class="soundcloud-wrapper">
-            <iframe width="100%" height="600" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A2307194783&color=%232f2f2f&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe>
-          </div>
-        </div>
-      </div>
+</div>
+
+<main class="page sonus-jewel-scene">
+  <div class="sonus-jewel-pad">
+    <div class="sonus-jewel-grid">
+      <button
+        type="button"
+        class="sonus-jewel-case-btn sonus-jewel-open"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        aria-controls="jewel-modal"
+        data-jewel-project="Metanoia Genesis"
+        data-jewel-cover="assets/metanoia-genesis-cover.png"
+        data-jewel-audio="https://pub-b5d02547e7f94e618d7618c248575706.r2.dev/metanoia-genesis.mp3"
+        data-jewel-booklet="genesis"
+      >
+        <span class="visually-hidden">Открыть Metanoia Genesis</span>
+        <svg class="sonus-jewel-front-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 233 208" role="img" aria-hidden="true">
+          <defs>
+            <clipPath id="sonus-closed-cover-clip-1" clipPathUnits="userSpaceOnUse"><rect x="66" y="44" width="120" height="120"/></clipPath>
+          </defs>
+          <rect x="52" y="44" width="134" height="120" fill="var(--jewel-shell-fill)" stroke="var(--jewel-shell-stroke)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+          <rect x="52" y="44" width="14" height="120" fill="var(--jewel-spine-fill)"/>
+          <image clip-path="url(#sonus-closed-cover-clip-1)" href="assets/metanoia-genesis-cover.png" x="66" y="44" width="120" height="120" preserveAspectRatio="xMidYMid slice"/>
+          <rect x="66" y="44" width="120" height="120" fill="none" stroke="var(--jewel-shell-stroke)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        class="sonus-jewel-case-btn sonus-jewel-open"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        aria-controls="jewel-modal"
+        data-jewel-project="Metanoia — Tutorial"
+        data-jewel-cover="assets/metanoia-tutorial-cover.png"
+        data-jewel-audio="https://pub-b5d02547e7f94e618d7618c248575706.r2.dev/rec-2022-03-03.mp3"
+      >
+        <span class="visually-hidden">Открыть Metanoia Tutorial</span>
+        <svg class="sonus-jewel-front-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 233 208" role="img" aria-hidden="true">
+          <defs>
+            <clipPath id="sonus-closed-cover-clip-2" clipPathUnits="userSpaceOnUse"><rect x="66" y="44" width="120" height="120"/></clipPath>
+          </defs>
+          <rect x="52" y="44" width="134" height="120" fill="var(--jewel-shell-fill)" stroke="var(--jewel-shell-stroke)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+          <rect x="52" y="44" width="14" height="120" fill="var(--jewel-spine-fill)"/>
+          <image clip-path="url(#sonus-closed-cover-clip-2)" href="assets/metanoia-tutorial-cover.png" x="66" y="44" width="120" height="120" preserveAspectRatio="xMidYMid slice"/>
+          <rect x="66" y="44" width="120" height="120" fill="none" stroke="var(--jewel-shell-stroke)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        class="sonus-jewel-case-btn sonus-jewel-open"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        aria-controls="jewel-modal"
+        data-jewel-project="Metanoia — ACID"
+        data-jewel-cover="assets/metanoia-acid-cover.png"
+        data-jewel-audio="https://pub-b5d02547e7f94e618d7618c248575706.r2.dev/poterianny-cast-36.mp3"
+      >
+        <span class="visually-hidden">Открыть Metanoia ACID</span>
+        <svg class="sonus-jewel-front-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 233 208" role="img" aria-hidden="true">
+          <defs>
+            <clipPath id="sonus-closed-cover-clip-3" clipPathUnits="userSpaceOnUse"><rect x="66" y="44" width="120" height="120"/></clipPath>
+          </defs>
+          <rect x="52" y="44" width="134" height="120" fill="var(--jewel-shell-fill)" stroke="var(--jewel-shell-stroke)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+          <rect x="52" y="44" width="14" height="120" fill="var(--jewel-spine-fill)"/>
+          <image clip-path="url(#sonus-closed-cover-clip-3)" href="assets/metanoia-acid-cover.png" x="66" y="44" width="120" height="120" preserveAspectRatio="xMidYMid slice"/>
+          <rect x="66" y="44" width="120" height="120" fill="none" stroke="var(--jewel-shell-stroke)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        class="sonus-jewel-case-btn sonus-jewel-open"
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        aria-controls="jewel-modal"
+        data-jewel-project="Metanoia — Circle"
+        data-jewel-cover="assets/metanoia-circle-cover.png"
+        data-jewel-audio="https://pub-b5d02547e7f94e618d7618c248575706.r2.dev/01%20poterianny%20circle%2047.mp3"
+      >
+        <span class="visually-hidden">Открыть Metanoia Circle</span>
+        <svg class="sonus-jewel-front-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 233 208" role="img" aria-hidden="true">
+          <defs>
+            <clipPath id="sonus-closed-cover-clip-4" clipPathUnits="userSpaceOnUse"><rect x="66" y="44" width="120" height="120"/></clipPath>
+          </defs>
+          <rect x="52" y="44" width="134" height="120" fill="var(--jewel-shell-fill)" stroke="var(--jewel-shell-stroke)" stroke-width="2" vector-effect="non-scaling-stroke"/>
+          <rect x="52" y="44" width="14" height="120" fill="var(--jewel-spine-fill)"/>
+          <image clip-path="url(#sonus-closed-cover-clip-4)" href="assets/metanoia-circle-cover.png" x="66" y="44" width="120" height="120" preserveAspectRatio="xMidYMid slice"/>
+          <rect x="66" y="44" width="120" height="120" fill="none" stroke="var(--jewel-shell-stroke)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+        </svg>
+      </button>
     </div>
-    <div class="disc" data-disc="002">
-      <div class="disc-spine">
-        <span class="spine-label">002</span>
-      </div>
-      <div class="disc-expanded">
-        <div class="disc-info">
-          <div class="disc-num">002</div>
-          <h2 class="disc-title">Harmonies of Change</h2>
-          <p class="disc-desc">Rhythms of transformation, where dissonance resolves into unity and chaos finds its cadence.</p>
-          <ol class="disc-tracklist">
-            <li>Discordant Dawn</li>
-            <li>Shifting Tones</li>
-            <li>Unified Pulse</li>
-            <li>Metamorphic Echo</li>
-          </ol>
-        </div>
-        <div class="disc-visual">
-          <svg class="disc-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="100" cy="100" r="90" fill="var(--dim)" stroke="var(--text)" stroke-width="2"/>
-            <circle cx="100" cy="100" r="70" fill="none" stroke="var(--text)" stroke-width="1" opacity="0.5"/>
-            <circle cx="100" cy="100" r="50" fill="none" stroke="var(--text)" stroke-width="1" opacity="0.3"/>
-            <circle cx="100" cy="100" r="15" fill="var(--text)"/>
-          </svg>
-          <button class="play-btn">Play</button>
-        </div>
-      </div>
-    </div>
-    <div class="disc" data-disc="003">
-      <div class="disc-spine">
-        <span class="spine-label">003</span>
-      </div>
-      <div class="disc-expanded">
-        <div class="disc-info">
-          <div class="disc-num">003</div>
-          <h2 class="disc-title">Symphony of the Soul</h2>
-          <p class="disc-desc">Inner vibrations awakening, where the heart's rhythm aligns with cosmic frequencies.</p>
-          <ol class="disc-tracklist">
-            <li>Heartbeat Cadence</li>
-            <li>Soul's Vibration</li>
-            <li>Cosmic Alignment</li>
-            <li>Eternal Resonance</li>
-          </ol>
-        </div>
-        <div class="disc-visual">
-          <svg class="disc-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="100" cy="100" r="90" fill="var(--dim)" stroke="var(--text)" stroke-width="2"/>
-            <circle cx="100" cy="100" r="70" fill="none" stroke="var(--text)" stroke-width="1" opacity="0.5"/>
-            <circle cx="100" cy="100" r="50" fill="none" stroke="var(--text)" stroke-width="1" opacity="0.3"/>
-            <circle cx="100" cy="100" r="15" fill="var(--text)"/>
-          </svg>
-          <button class="play-btn">Play</button>
-        </div>
-      </div>
+  </div>
+</main>
+
+<div id="jewel-modal" class="modal sonus-jewel-modal" aria-hidden="true">
+  <div class="modal-content sonus-jewel-modal-sheet" role="dialog" aria-modal="true" aria-labelledby="jewel-modal-title">
+    <button type="button" class="modal-close sonus-jewel-modal-close" data-jewel-close aria-label="Закрыть">×</button>
+    <h2 id="jewel-modal-title" class="visually-hidden">Открытый CD-кейс</h2>
+
+    <div class="sonus-open-wrap" tabindex="-1">
+      <svg
+        class="sonus-open-case-svg"
+        xmlns="http://www.w3.org/2000/svg"
+        width="945"
+        height="445"
+        viewBox="0 0 945 445"
+        aria-hidden="true"
+        shape-rendering="geometricPrecision"
+      >
+        <!-- Backplate fill -->
+        <rect x="1.5" y="1.5" width="942" height="442" fill="var(--jewel-shell-fill)" stroke="none"/>
+        <rect x="1.5" y="1.5" width="942" height="442" fill="none" stroke="var(--jewel-shell-stroke)" stroke-width="3"/>
+        <line x1="472.5" y1="1.5" x2="472.5" y2="443.5" stroke="var(--jewel-shell-stroke)" stroke-width="3" stroke-linecap="square"/>
+        <line x1="447.5" y1="1.5" x2="447.5" y2="443.5" stroke="var(--jewel-shell-stroke)" stroke-width="1" stroke-linecap="square"/>
+        <line x1="497.5" y1="1.5" x2="497.5" y2="443.5" stroke="var(--jewel-shell-stroke)" stroke-width="1" stroke-linecap="square"/>
+        <rect x="10.5" y="5" width="432" height="432" fill="none" stroke="var(--jewel-shell-stroke)" stroke-width="1"/>
+        <rect x="502.5" y="5" width="432" height="432" fill="none" stroke="var(--jewel-shell-stroke)" stroke-width="1"/>
+
+        <foreignObject id="sonus-modal-booklet" x="10.5" y="5" width="432" height="432">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="sonus-booklet">
+            <div class="sonus-booklet-inner">
+              <div class="sonus-booklet-title">Metanoia — Genesis</div>
+              <div class="sonus-booklet-poem">
+                <div>There is a point where roads cross.</div>
+                <div>There are places where steps begin.</div>
+                <div>There is a place where both are met.</div>
+              </div>
+              <ol class="sonus-booklet-tracklist">
+                <li>Xerrox Monophaser 2 — Alva Noto</li>
+                <li>Uni Blue — Alva Noto</li>
+                <li>Acid Bells — Efdemin</li>
+                <li>Ess Gee — Underworld</li>
+                <li>Elaenia — Floating Points</li>
+                <li>Seething — Max Cooper</li>
+                <li>data.flex — Ryoji Ikeda</li>
+                <li>Green Pulse — Xenia Reaper</li>
+                <li>(' ∀ `)ノ～ ♡ — Xenia Reaper</li>
+              </ol>
+            </div>
+          </div>
+        </foreignObject>
+
+        <defs>
+          <clipPath id="sonus-cover-annulus" clipPathUnits="userSpaceOnUse">
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M 718.5 56 A 165 165 0 1 1 718.5 386 A 165 165 0 1 1 718.5 56 Z M 718.5 178 A 43 43 0 1 0 718.5 264 A 43 43 0 1 0 718.5 178 Z"
+            />
+          </clipPath>
+          <path
+            id="sonus-disc-title-path"
+            fill="none"
+            d="M 746.5 221 A 28 28 0 1 1 690.5 221 A 28 28 0 1 1 746.5 221"
+          />
+        </defs>
+
+        <g id="sonus-modal-disc" fill="none" stroke="var(--jewel-shell-stroke)" vector-effect="non-scaling-stroke">
+          <circle cx="718.5" cy="221" r="170" stroke-width="3"/>
+          <image
+            id="sonus-modal-disc-cover"
+            clip-path="url(#sonus-cover-annulus)"
+            href=""
+            x="553.5"
+            y="56"
+            width="330"
+            height="330"
+            preserveAspectRatio="xMidYMid slice"
+            opacity="0"
+          />
+          <circle cx="718.5" cy="221" r="39" stroke-width="1.5" opacity="0.55"/>
+          <g class="sonus-disc-ring-title-g" fill="var(--jewel-shell-stroke)" stroke="none" opacity="0.9">
+            <text
+              class="sonus-disc-ring-title"
+              font-size="10.5"
+              font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+              font-weight="500"
+              letter-spacing="0.16em"
+            >
+              <textPath id="sonus-disc-title-tp" href="#sonus-disc-title-path" startOffset="50%" text-anchor="middle">
+                Metanoia — Genesis
+              </textPath>
+            </text>
+          </g>
+          <circle cx="718.5" cy="221" r="18" stroke-width="2.5" fill="var(--jewel-shell-fill)" opacity="0.98"/>
+        </g>
+      </svg>
+
+      <audio
+        id="sonus-modal-audio"
+        class="sonus-modal-native-audio"
+        controls
+        preload="metadata"
+        playsinline
+      ></audio>
     </div>
   </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script src="shared.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const discs = document.querySelectorAll('.disc');
-  
-  discs.forEach(disc => {
-    disc.addEventListener('click', () => {
-      const isOpen = disc.classList.contains('open');
-      // Close all discs and stop playing
-      discs.forEach(d => {
-        d.classList.remove('open', 'playing');
-        const btn = d.querySelector('.play-btn');
-        if (btn) btn.textContent = 'Play';
-      });
-      // Open this disc if it wasn't open
-      if (!isOpen) {
-        disc.classList.add('open');
+(function mountJewelCaseModal() {
+  const modal = document.getElementById('jewel-modal');
+  const triggers = document.querySelectorAll('.sonus-jewel-open');
+  const modalTitle = document.getElementById('jewel-modal-title');
+  const modalBooklet = document.getElementById('sonus-modal-booklet');
+  const audioEl = /** @type {HTMLAudioElement | null} */ (document.getElementById('sonus-modal-audio'));
+  const openSvg = modal?.querySelector('.sonus-open-case-svg');
+  if (!modal || !triggers.length) return;
+
+  const focusTarget = modal.querySelector('.modal-close');
+  let activeTrigger = null;
+
+  function resetDiscSpinVisual() {
+    if (!openSvg) return;
+    const disc = openSvg.querySelector('#sonus-modal-disc');
+    openSvg.classList.remove('is-disc-playing');
+    if (!disc || !(disc instanceof SVGElement)) return;
+    disc.style.setProperty('animation', 'none');
+    void modal.offsetHeight;
+    disc.style.removeProperty('animation');
+  }
+
+  function syncDiscCoverFromModal() {
+    const svg = modal.querySelector('.sonus-open-case-svg');
+    const img = /** @type {SVGImageElement | null} */ (svg?.querySelector('#sonus-modal-disc-cover') ?? null);
+    if (!img) return;
+    const cover = ((modal.dataset.jewelCover || '') + '').trim();
+    if (!cover) {
+      img.removeAttribute('href');
+      img.setAttribute('opacity', '0');
+      return;
+    }
+    try {
+      img.setAttribute('href', new URL(cover, window.location.href).href);
+      img.setAttribute('opacity', '0.94');
+    } catch (_) {
+      img.removeAttribute('href');
+      img.setAttribute('opacity', '0');
+    }
+  }
+
+  function syncModalFromButton(btn) {
+    const project = (btn.dataset.jewelProject || '').trim();
+    const cover = (btn.dataset.jewelCover || '').trim();
+    modal.dataset.jewelCover = cover;
+    if (modalTitle) modalTitle.textContent = project || 'Sonus';
+    if (modalBooklet) {
+      modalBooklet.style.display = (btn.dataset.jewelBooklet || '').trim() === 'genesis' ? 'block' : 'none';
+    }
+    syncDiscCoverFromModal();
+    syncDiscRingTitle();
+  }
+
+  function syncDiscRingTitle() {
+    const tp = document.getElementById('sonus-disc-title-tp');
+    if (!tp || !modalTitle) return;
+    const t = (modalTitle.textContent || '').trim();
+    tp.textContent = t.length ? t : ' ';
+  }
+
+  function prepareModalAudio(btn) {
+    if (!audioEl) return;
+    audioEl.pause();
+    try {
+      audioEl.currentTime = 0;
+    } catch (_) {
+      /* ignore */
+    }
+    const src = ((btn && btn.dataset.jewelAudio) || '').trim();
+    if (!src) {
+      audioEl.removeAttribute('src');
+      audioEl.load();
+      return;
+    }
+    let absWant;
+    try {
+      absWant = new URL(src, window.location.href).href;
+    } catch (_) {
+      audioEl.removeAttribute('src');
+      audioEl.load();
+      return;
+    }
+    if (audioEl.src !== absWant) {
+      audioEl.src = src;
+      audioEl.load();
+    }
+  }
+
+  function openModal(btn) {
+    activeTrigger = btn;
+    syncModalFromButton(btn);
+    prepareModalAudio(btn);
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
+    triggers.forEach((b) => b.setAttribute('aria-expanded', 'false'));
+    btn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    if (focusTarget) focusTarget.focus();
+    resetDiscSpinVisual();
+  }
+
+  function closeModal() {
+    if (audioEl) {
+      audioEl.pause();
+      try {
+        audioEl.currentTime = 0;
+      } catch (_) {
+        /* ignore */
       }
-    });
-  });
-  
-  // Play buttons
-  document.querySelectorAll('.play-btn').forEach(btn => {
+    }
+    resetDiscSpinVisual();
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+    triggers.forEach((b) => b.setAttribute('aria-expanded', 'false'));
+    document.body.style.overflow = '';
+    if (activeTrigger) activeTrigger.focus();
+  }
+
+  triggers.forEach((btn) => {
     btn.addEventListener('click', (e) => {
-      e.stopPropagation(); // Prevent disc click
-      const disc = btn.closest('.disc');
-      disc.classList.toggle('playing');
-      btn.textContent = disc.classList.contains('playing') ? 'Pause' : 'Play';
+      e.preventDefault();
+      openModal(btn);
     });
   });
-});
+
+  modal.querySelectorAll('[data-jewel-close]').forEach((btn) => {
+    btn.addEventListener('click', () => closeModal());
+  });
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (modal.getAttribute('aria-hidden') === 'false') closeModal();
+  });
+
+  if (audioEl && openSvg) {
+    audioEl.addEventListener('play', () => openSvg.classList.add('is-disc-playing'));
+    audioEl.addEventListener('pause', () => openSvg.classList.remove('is-disc-playing'));
+    audioEl.addEventListener('ended', () => openSvg.classList.remove('is-disc-playing'));
+  }
+})();
 </script>
 </body>
 </html>
