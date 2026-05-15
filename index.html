@@ -1,50 +1,85 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="dark" class="index-static-root" data-i18n-doc-title="page.index">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Μετάνοια</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=20260512-1">
+<style id="index-orbital-styles">
+  /*
+   * Орбита: left/top — центр окружности; translate(-50%,-50%) якорит центр #orbital-follow.
+   * Контейнер 72×72 — совпадает с зоной particle-logo, иначе визуальный центр лого смещён.
+   */
+  #orbital-follow {
+    position: fixed;
+    z-index: 10;
+    width: 72px;
+    height: 72px;
+    transform: translate(-50%, -50%);
+    pointer-events: auto;
+    will-change: left, top;
+    overflow: visible;
+  }
+
+  #orbital-follow .header-particle-mount[data-particle-logo] {
+    position: relative !important;
+    inset: auto !important;
+    width: 72px;
+    height: 72px;
+    pointer-events: auto !important;
+    overflow: visible;
+  }
+
+  .header-particle-mount[data-particle-logo] > * {
+    pointer-events: none !important;
+  }
+
+  /* Канвас: none по умолчанию; JS включает auto только когда нав открыт (клик по словам). */
+  #orbital-follow .header-particle-mount[data-particle-logo] > * {
+    pointer-events: none !important;
+  }
+
+  #orbital-follow .header-particle-mount[data-particle-logo] canvas {
+    pointer-events: none !important;
+  }
+</style>
 <script src="vendor/p5.min.js"></script>
+<script src="i18n.js"></script>
 </head>
-<body data-require-auth="true">
+<body class="index-page" data-require-auth="true">
 <div id="bg"></div>
 <div class="page">
-  <header>
-    <div class="logo-placeholder">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
-        <circle cx="50" cy="50" r="45" stroke="currentColor" fill="none" stroke-width="2"/>
-        <text x="50" y="58" text-anchor="middle" font-size="28" fill="currentColor" font-family="Arial" font-weight="bold">M</text>
-      </svg>
+  <header data-particle-nav="true">
+    <div class="header-brand">
+      <a class="logo-placeholder" href="index.html" data-i18n-aria="logo.aria"></a>
     </div>
-    <nav>
-      <a href="iacta.html">Iacta</a>
-      <a href="sonus.html">Sonus</a>
-      <a href="anima.html">Anima</a>
-    </nav>
-    <div class="header-right">
-      <button type="button" class="toggle" aria-pressed="true">
-        <span class="toggle-label" id="theme-label">Dark</span>
-        <div class="toggle-track"><div class="toggle-knob"></div></div>
-      </button>
-    </div>
-  </header>
+</header>
 </div>
+
+<div id="orbital-follow" aria-label="Particle logo and navigation">
+  <div
+    class="header-particle-mount"
+    data-particle-logo
+    data-orbit-particle-nav="1"
+    data-nav-caption="IACTA · SONUS · ANIMA"
+  ></div>
+</div>
+
 <main class="page">
   <section class="cover">
-    <h1 class="cover-title">Μετάνοια</h1>
-    <p class="cover-line">From interpretation of reality to participation in it.</p>
+    <h1 class="cover-title" data-i18n="index.brand.title">Μετάνοια</h1>
+    <p class="cover-line" data-i18n="index.cover.line">From interpretation of reality to participation in it.</p>
   </section>
 
   <section class="bridge">
-    <p>This is not content to consume. It is a discipline of perception, encountered through interaction.</p>
+    <p data-i18n="index.bridge">This is not content to consume. It is a discipline of perception, encountered through interaction.</p>
   </section>
 
   <section class="excerpt">
-    <p>What appears as a cycle is a limitation of perception.</p>
-    <p>Dawn and dusk, birth and death, the yo-yo in the hand before the throw and the yo-yo returned to the hand, these are not repetitions.</p>
-    <p>They are projections of divided thinking attempting to stabilize itself.</p>
-    <button class="manifesto-link" onclick="openManifestoModal()">Read the full manifesto</button>
+    <p data-i18n="index.excerpt.p1">What appears as a cycle is a limitation of perception.</p>
+    <p data-i18n="index.excerpt.p2">Dawn and dusk, birth and death, the yo-yo in the hand before the throw and the yo-yo returned to the hand, these are not repetitions.</p>
+    <p data-i18n="index.excerpt.p3">They are projections of divided thinking attempting to stabilize itself.</p>
+    <button type="button" class="manifesto-link" onclick="openManifestoModal()" data-i18n="index.manifesto.btn">Read the full manifesto</button>
   </section>
 
 </main>
@@ -53,8 +88,8 @@
 <div id="manifesto-modal" class="modal">
   <div class="modal-content manifesto-modal-content">
     <button class="modal-close" onclick="closeManifestoModal()">×</button>
-    <h2 class="manifesto-full-title">Manifesto</h2>
-    <div class="manifesto-body manifesto-pre">
+    <h2 class="manifesto-full-title" data-i18n="index.manifesto.title">Manifesto</h2>
+    <div class="manifesto-body manifesto-pre" data-i18n-html="index.manifesto.body">
 From interpretation of reality to participation in it.
 What appears as a cycle is a limitation of perception.
 Dawn and dusk,
@@ -131,8 +166,7 @@ function closeManifestoModal() {
 	const modal = document.getElementById('manifesto-modal');
 	if (modal) {
 		modal.style.display = 'none';
-		// Re-enable scrolling
-		document.body.style.overflow = 'auto';
+		document.body.style.overflow = '';
 	}
 }
 
@@ -161,6 +195,16 @@ const particles = 8000;
 const attraction = 0.005; // pulled back to their rotating home (slowed)
 const damping = 0.95; // friction, keeps motion smooth (slowed)
 const repel_strength = 28;
+let bgParticlesInteractive = true;
+
+function syncBgParticlesInteractiveFromStorage() {
+	const v = localStorage.getItem('bgParticlesInteractive');
+	bgParticlesInteractive = v !== '0' && v !== 'false';
+}
+
+window.__metanoiaSyncBgParticlesInteractive = function (on) {
+	bgParticlesInteractive = !!on;
+};
 
 // Theme colors
 let bgColor;
@@ -188,24 +232,66 @@ function hexToRgb(hex) {
 	] : [255, 255, 255];
 }
 
+function indexLayoutSize() {
+	const w = document.documentElement.clientWidth;
+	const h = document.documentElement.clientHeight;
+	return { w, h };
+}
+
 function setup() {
+	syncBgParticlesInteractiveFromStorage();
+	document.addEventListener('metanoia:bgparticles', function (e) {
+		bgParticlesInteractive = !!(e.detail && e.detail.on);
+	});
+
 	// Get theme colors
 	const themeColors = getThemeColors();
 	bgColor = themeColors.bg;
 	particleColor = themeColors.text;
 
+	const { w: cw, h: ch } = indexLayoutSize();
+
+	pixelDensity(1);
+
 	if (isMobile) {
-		createCanvas(window.innerWidth, window.innerHeight);
+		createCanvas(cw, ch);
 		radius_ = 160;
 		repel_radius = 60;
 	} else {
-		createCanvas(window.innerWidth, window.innerHeight);
+		createCanvas(cw, ch);
 		radius_ = 250;
 		repel_radius = 90;
 	}
+	/* Радиус «облака» фона — орбита лого = radius_ + 10 (index orbital script). */
+	window.__metanoiaBgParticleRadius = radius_;
 
-	// Position canvas as background
-	let canvas = document.querySelector('canvas');
+	/*
+	 * Нельзя document.querySelector('canvas'): первым в DOM часто канвас particle-logo
+	 * внутри #orbital-follow. Берём канвас полноэкранного скетча — вне orbital, совпадает с cw×ch.
+	 */
+	let canvas = null;
+	const list = document.querySelectorAll('canvas');
+	for (let i = 0; i < list.length; i++) {
+		const c = list[i];
+		if (c.closest('#orbital-follow')) continue;
+		if (c.width === cw && c.height === ch) {
+			canvas = c;
+			break;
+		}
+	}
+	if (!canvas) {
+		for (let j = 0; j < list.length; j++) {
+			const c = list[j];
+			if (!c.closest('#orbital-follow')) {
+				canvas = c;
+				break;
+			}
+		}
+	}
+	if (!canvas && list.length) canvas = list[list.length - 1];
+	if (!canvas) return;
+
+	canvas.id = 'index-particle-bg';
 	canvas.style.position = 'fixed';
 	canvas.style.top = '0';
 	canvas.style.left = '0';
@@ -213,9 +299,7 @@ function setup() {
 	canvas.style.pointerEvents = 'auto';
 	document.body.insertBefore(canvas, document.body.firstChild);
 
-	pixelDensity(1);
-	stroke(particleColor[0], particleColor[1], particleColor[2]);
-	strokeWeight(2);
+	strokeWeight(1.75);
 
 	// fill points array
 	for (let i = 0; i < particles; i++) {
@@ -240,7 +324,6 @@ function watchThemeChanges() {
 		const themeColors = getThemeColors();
 		bgColor = themeColors.bg;
 		particleColor = themeColors.text;
-		stroke(particleColor[0], particleColor[1], particleColor[2]);
 	});
 
 	observer.observe(document.documentElement, {
@@ -248,10 +331,15 @@ function watchThemeChanges() {
 		attributeFilter: ['data-theme']
 	});
 
-	// Handle window resize
+	// Handle window resize (client* совпадает с видимой областью index-static-root / dvh).
 	window.addEventListener('resize', () => {
-		resizeCanvas(window.innerWidth, window.innerHeight);
+		const { w, h } = indexLayoutSize();
+		resizeCanvas(w, h);
 	});
+}
+
+function indexParticleAlpha() {
+	return document.documentElement.dataset.theme === 'light' ? 38 : 70;
 }
 
 function draw() {
@@ -259,6 +347,8 @@ function draw() {
 	translate(width / 2, height / 2);
 
 	let mouse = createVector(mouseX - width / 2, mouseY - height / 2);
+	const pa = indexParticleAlpha();
+	stroke(particleColor[0], particleColor[1], particleColor[2], pa);
 
 	for (let p of points) {
 		let i = p.index;
@@ -274,15 +364,16 @@ function draw() {
 		p.vel.add(spring);
 
 		// mouse repulsion (strong when very close) ----
-		let awayFromMouse = p5.Vector.sub(p.pos, mouse);
-		let distSq = awayFromMouse.magSq();
-		if (distSq > 0.1 && distSq < repel_radius * repel_radius) {
-			let distance = sqrt(distSq);
-			awayFromMouse.normalize();
-			// natural falloff
-			let repel = repel_strength * (1 - distance / repel_radius);
-			awayFromMouse.mult(repel);
-			p.vel.add(awayFromMouse);
+		if (bgParticlesInteractive) {
+			let awayFromMouse = p5.Vector.sub(p.pos, mouse);
+			let distSq = awayFromMouse.magSq();
+			if (distSq > 0.1 && distSq < repel_radius * repel_radius) {
+				let distance = sqrt(distSq);
+				awayFromMouse.normalize();
+				let repel = repel_strength * (1 - distance / repel_radius);
+				awayFromMouse.mult(repel);
+				p.vel.add(awayFromMouse);
+			}
 		}
 
 		// damping and move
@@ -292,6 +383,7 @@ function draw() {
 		point(p.pos.x, p.pos.y);
 	}
 	angle += 0.003; // slower rotation speed
+	if (window.__metanoiaAdvanceOrbit) window.__metanoiaAdvanceOrbit();
 }
 
 // put the initial positions right
@@ -308,5 +400,59 @@ function updateTargets() {
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script src="shared.js"></script>
+<script src="particle-logo-header.js"></script>
+<script>
+(function orbitalIndexLogo() {
+  var follow = document.getElementById('orbital-follow');
+  if (!follow) return;
+
+  var orbitAngle = 0;
+  var orbitSpeed = 0.004;
+  var orbitRadiusX = 320;
+  var orbitRadiusY = 320;
+  /* φ = −π/2: при orbitAngle=0 центр лого сверху окружности */
+  var orbitPhase = -Math.PI / 2;
+  var orbitPaused = false;
+
+  function dims() {
+    var doc = document.documentElement;
+    var w = doc.clientWidth;
+    var h = doc.clientHeight;
+    return {
+      cx: w * 0.5,
+      cy: h * 0.5,
+      orbitRadiusX: orbitRadiusX,
+      orbitRadiusY: orbitRadiusY,
+    };
+  }
+
+  function advanceOrbit() {
+    if (orbitPaused) return;
+    var d = dims();
+    orbitAngle += orbitSpeed;
+    var a = orbitAngle + orbitPhase;
+    var x = d.cx + Math.cos(a) * d.orbitRadiusX;
+    var y = d.cy + Math.sin(a) * d.orbitRadiusY;
+    follow.style.left = x + 'px';
+    follow.style.top = y + 'px';
+  }
+
+  window.__metanoiaAdvanceOrbit = advanceOrbit;
+  window.__metanoiaSetOrbitPause = function (paused) {
+    orbitPaused = !!paused;
+  };
+
+  (function placeOnce() {
+    var d = dims();
+    var a = orbitAngle + orbitPhase;
+    var x = d.cx + Math.cos(a) * d.orbitRadiusX;
+    var y = d.cy + Math.sin(a) * d.orbitRadiusY;
+    follow.style.left = x + 'px';
+    follow.style.top = y + 'px';
+  })();
+
+})();
+
+</script>
 </body>
 </html>

@@ -8,7 +8,7 @@ const WORDS = [
   'معنى', 'صمت', 'نور', 'شكل', 'حقيقة',
 ];
 
-const POSTS = [
+const POSTS_EN = [
   {
     id: 'manifesto',
     title: 'MANIFESTO',
@@ -22,6 +22,33 @@ const POSTS = [
 <p>(…full text continues…)</p>`,
   },
 ];
+
+function i18nT(key, fallback) {
+  if (window.MetanoiaI18n && typeof window.MetanoiaI18n.t === 'function') {
+    const v = window.MetanoiaI18n.t(key);
+    if (v && v !== key) return v;
+  }
+  return fallback;
+}
+
+function getLocalizedPosts() {
+  const manifestoBody = i18nT('index.manifesto.body', '');
+  const manifestoHtml = manifestoBody
+    ? `<p>${manifestoBody.replace(/\s*\n\s*/g, ' ').trim()}</p>`
+    : POSTS_EN[0].bodyHtml;
+  return [
+    {
+      id: 'manifesto',
+      title: i18nT('anima.post.manifesto.title', POSTS_EN[0].title),
+      bodyHtml: manifestoHtml,
+    },
+    {
+      id: 'chapter-1-bratislava',
+      title: i18nT('anima.post.chapter.title', POSTS_EN[1].title),
+      bodyHtml: POSTS_EN[1].bodyHtml,
+    },
+  ];
+}
 
 function randInt(n) {
   return Math.floor(Math.random() * n);
@@ -259,7 +286,7 @@ function mountFireGL() {
 
   // Modal wiring (reuse existing modal styles)
   function openPost(id) {
-    const post = POSTS.find((p) => p.id === id);
+    const post = getLocalizedPosts().find((p) => p.id === id);
     if (!post) return;
     const modal = document.getElementById('post-modal');
     const title = document.getElementById('post-title');
@@ -432,10 +459,20 @@ function mountFireGL() {
 
   let streamChars = buildStreamChars();
   // Pick stable-ish link positions on the texture grid.
+  const posts = getLocalizedPosts();
   const links = [
-    { id: POSTS[0].id, title: POSTS[0].title, x: 90, y: 260, uv: null, px: null },
-    { id: POSTS[1].id, title: POSTS[1].title, x: 120, y: 520, uv: null, px: null },
+    { id: posts[0].id, title: posts[0].title, x: 90, y: 260, uv: null, px: null },
+    { id: posts[1].id, title: posts[1].title, x: 120, y: 520, uv: null, px: null },
   ];
+
+  function syncAnimaLang() {
+    const next = getLocalizedPosts();
+    links[0].title = next[0].title;
+    links[1].title = next[1].title;
+    colors = uploadTextTexture();
+  }
+
+  document.addEventListener('metanoia:langchange', syncAnimaLang);
 
   let hoverId = null;
 

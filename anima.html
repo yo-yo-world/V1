@@ -1,40 +1,36 @@
 <!DOCTYPE html>
-<html lang="el" data-theme="dark">
+<html lang="el" data-theme="dark" data-i18n-doc-title="page.anima">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Μετάνοια — Anima</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=20260511-2">
+<script src="vendor/p5.min.js"></script>
+<script src="i18n.js"></script>
 </head>
 <body class="anima-page" data-require-auth="true">
 <div id="bg"></div>
 <div id="anima-canvas-container" aria-hidden="true"></div>
 <div class="page">
-  <header>
-    <div class="logo-placeholder">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
-        <circle cx="50" cy="50" r="45" stroke="currentColor" fill="none" stroke-width="2"/>
-        <text x="50" y="58" text-anchor="middle" font-size="28" fill="currentColor" font-family="Arial" font-weight="bold">M</text>
-      </svg>
+  <header data-particle-nav="true">
+    <div class="header-brand">
+      <a class="logo-placeholder" href="index.html" data-i18n-aria="logo.aria"></a>
+      <div class="header-brand-rest">
+        <div class="header-particle-mount" data-particle-logo></div>
+        <nav>
+          <a href="sonus.html" data-nav-href="sonus.html" data-i18n="nav.sonus">Sonus</a>
+          <a href="iacta.html" data-nav-href="iacta.html" data-i18n="nav.iacta">Iacta</a>
+          <a href="anima.html" data-nav-href="anima.html" data-i18n="nav.anima">Anima</a>
+        </nav>
+      </div>
     </div>
-    <nav>
-      <a href="iacta.html">Iacta</a>
-      <a href="sonus.html">Sonus</a>
-      <a href="anima.html">Anima</a>
-    </nav>
-    <div class="header-right">
-      <button type="button" class="toggle" aria-pressed="true">
-        <span class="toggle-label" id="theme-label">Dark</span>
-        <div class="toggle-track"><div class="toggle-knob"></div></div>
-      </button>
-    </div>
-  </header>
+</header>
 </div>
 
 <!-- Post Modal -->
 <div id="post-modal" class="modal" aria-hidden="true">
   <div class="modal-content manifesto-modal-content" role="dialog" aria-modal="true" aria-labelledby="post-title">
-    <button type="button" class="modal-close" data-close-post aria-label="Close">×</button>
+    <button type="button" class="modal-close" data-close-post data-i18n-aria="anima.close">×</button>
     <h2 class="manifesto-full-title" id="post-title">—</h2>
     <div class="manifesto-body" id="post-body"></div>
   </div>
@@ -43,6 +39,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script src="shared.js"></script>
+<script src="particle-logo-header.js"></script>
 <script src="anima-firegl.js"></script>
 </body>
 </html>

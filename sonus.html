@@ -1,33 +1,29 @@
 <!DOCTYPE html>
-<html lang="el" data-theme="dark">
+<html lang="el" data-theme="dark" data-i18n-doc-title="page.sonus">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Μετάνοια — Sonus</title>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=20260511-2">
+<script src="vendor/p5.min.js"></script>
+<script src="i18n.js"></script>
 </head>
 <body class="sonus-page" data-require-auth="true">
 <div id="bg"></div>
 <div class="page">
-  <header>
-    <div class="logo-placeholder">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" width="40" height="40" aria-hidden="true">
-        <circle cx="50" cy="50" r="45" stroke="currentColor" fill="none" stroke-width="2"/>
-        <text x="50" y="58" text-anchor="middle" font-size="28" fill="currentColor" font-family="Arial" font-weight="bold">M</text>
-      </svg>
+  <header data-particle-nav="true">
+    <div class="header-brand">
+      <a class="logo-placeholder" href="index.html" data-i18n-aria="logo.aria"></a>
+      <div class="header-brand-rest">
+        <div class="header-particle-mount" data-particle-logo></div>
+        <nav>
+          <a href="sonus.html" data-nav-href="sonus.html" data-i18n="nav.sonus">Sonus</a>
+          <a href="iacta.html" data-nav-href="iacta.html" data-i18n="nav.iacta">Iacta</a>
+          <a href="anima.html" data-nav-href="anima.html" data-i18n="nav.anima">Anima</a>
+        </nav>
+      </div>
     </div>
-    <nav>
-      <a href="iacta.html">Iacta</a>
-      <a href="sonus.html">Sonus</a>
-      <a href="anima.html">Anima</a>
-    </nav>
-    <div class="header-right">
-      <button type="button" class="toggle" aria-pressed="true">
-        <span class="toggle-label" id="theme-label">Dark</span>
-        <div class="toggle-track"><div class="toggle-knob"></div></div>
-      </button>
-    </div>
-  </header>
+</header>
 </div>
 
 <main class="page sonus-jewel-scene">
@@ -44,8 +40,8 @@
         data-jewel-audio="https://pub-b5d02547e7f94e618d7618c248575706.r2.dev/metanoia-genesis.mp3"
         data-jewel-booklet="genesis"
       >
-        <span class="visually-hidden">Открыть Metanoia Genesis</span>
-        <svg class="sonus-jewel-front-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 233 208" role="img" aria-hidden="true">
+        <span class="visually-hidden" data-i18n="sonus.open.genesis">Открыть Metanoia Genesis</span>
+        <svg class="sonus-jewel-front-svg" xmlns="http://www.w3.org/2000/svg" viewBox="46 38 146 132" role="img" aria-hidden="true">
           <defs>
             <clipPath id="sonus-closed-cover-clip-1" clipPathUnits="userSpaceOnUse"><rect x="66" y="44" width="120" height="120"/></clipPath>
           </defs>
@@ -66,8 +62,8 @@
         data-jewel-cover="assets/metanoia-tutorial-cover.png"
         data-jewel-audio="https://pub-b5d02547e7f94e618d7618c248575706.r2.dev/rec-2022-03-03.mp3"
       >
-        <span class="visually-hidden">Открыть Metanoia Tutorial</span>
-        <svg class="sonus-jewel-front-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 233 208" role="img" aria-hidden="true">
+        <span class="visually-hidden" data-i18n="sonus.open.tutorial">Открыть Metanoia Tutorial</span>
+        <svg class="sonus-jewel-front-svg" xmlns="http://www.w3.org/2000/svg" viewBox="46 38 146 132" role="img" aria-hidden="true">
           <defs>
             <clipPath id="sonus-closed-cover-clip-2" clipPathUnits="userSpaceOnUse"><rect x="66" y="44" width="120" height="120"/></clipPath>
           </defs>
@@ -88,8 +84,8 @@
         data-jewel-cover="assets/metanoia-acid-cover.png"
         data-jewel-audio="https://pub-b5d02547e7f94e618d7618c248575706.r2.dev/poterianny-cast-36.mp3"
       >
-        <span class="visually-hidden">Открыть Metanoia ACID</span>
-        <svg class="sonus-jewel-front-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 233 208" role="img" aria-hidden="true">
+        <span class="visually-hidden" data-i18n="sonus.open.acid">Открыть Metanoia ACID</span>
+        <svg class="sonus-jewel-front-svg" xmlns="http://www.w3.org/2000/svg" viewBox="46 38 146 132" role="img" aria-hidden="true">
           <defs>
             <clipPath id="sonus-closed-cover-clip-3" clipPathUnits="userSpaceOnUse"><rect x="66" y="44" width="120" height="120"/></clipPath>
           </defs>
@@ -110,8 +106,8 @@
         data-jewel-cover="assets/metanoia-circle-cover.png"
         data-jewel-audio="https://pub-b5d02547e7f94e618d7618c248575706.r2.dev/01%20poterianny%20circle%2047.mp3"
       >
-        <span class="visually-hidden">Открыть Metanoia Circle</span>
-        <svg class="sonus-jewel-front-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 233 208" role="img" aria-hidden="true">
+        <span class="visually-hidden" data-i18n="sonus.open.circle">Открыть Metanoia Circle</span>
+        <svg class="sonus-jewel-front-svg" xmlns="http://www.w3.org/2000/svg" viewBox="46 38 146 132" role="img" aria-hidden="true">
           <defs>
             <clipPath id="sonus-closed-cover-clip-4" clipPathUnits="userSpaceOnUse"><rect x="66" y="44" width="120" height="120"/></clipPath>
           </defs>
@@ -127,8 +123,8 @@
 
 <div id="jewel-modal" class="modal sonus-jewel-modal" aria-hidden="true">
   <div class="modal-content sonus-jewel-modal-sheet" role="dialog" aria-modal="true" aria-labelledby="jewel-modal-title">
-    <button type="button" class="modal-close sonus-jewel-modal-close" data-jewel-close aria-label="Закрыть">×</button>
-    <h2 id="jewel-modal-title" class="visually-hidden">Открытый CD-кейс</h2>
+    <button type="button" class="modal-close sonus-jewel-modal-close" data-jewel-close data-i18n-aria="sonus.modal.close">×</button>
+    <h2 id="jewel-modal-title" class="visually-hidden" data-i18n="sonus.modal.title">Открытый CD-кейс</h2>
 
     <div class="sonus-open-wrap" tabindex="-1">
       <svg
@@ -154,9 +150,9 @@
             <div class="sonus-booklet-inner">
               <div class="sonus-booklet-title">Metanoia — Genesis</div>
               <div class="sonus-booklet-poem">
-                <div>There is a point where roads cross.</div>
-                <div>There are places where steps begin.</div>
-                <div>There is a place where both are met.</div>
+                <div data-i18n="sonus.booklet.line1">There is a point where roads cross.</div>
+                <div data-i18n="sonus.booklet.line2">There are places where steps begin.</div>
+                <div data-i18n="sonus.booklet.line3">There is a place where both are met.</div>
               </div>
               <ol class="sonus-booklet-tracklist">
                 <li>Xerrox Monophaser 2 — Alva Noto</li>
@@ -233,6 +229,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script src="shared.js"></script>
+<script src="particle-logo-header.js"></script>
 <script>
 (function mountJewelCaseModal() {
   const modal = document.getElementById('jewel-modal');
